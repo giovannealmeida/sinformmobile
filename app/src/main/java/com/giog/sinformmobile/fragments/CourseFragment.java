@@ -1,4 +1,4 @@
-package com.giog.sinformmobile.fragment;
+package com.giog.sinformmobile.fragments;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.giog.sinformmobile.MainActivity;
 import com.giog.sinformmobile.R;
 
 /**

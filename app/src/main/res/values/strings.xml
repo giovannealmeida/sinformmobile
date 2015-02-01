@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Menu itens-->
     <string name="app_name">Sinform Mobile</string>
     <string name="title_home">Home</string>
     <string name="title_programming">Programação</string>
     <string name="title_courses">Mini cursos</string>
     <string name="title_lectures">Palestras</string>
+    <string name="title_map">Como chegar</string>
+    <string name="title_organization">Organização</string>
+    <string name="title_support">Apoio</string>
+    <string name="title_contact">Contato</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>

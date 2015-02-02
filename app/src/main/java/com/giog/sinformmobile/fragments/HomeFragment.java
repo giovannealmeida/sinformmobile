@@ -1,11 +1,16 @@
 package com.giog.sinformmobile.fragments;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
 
@@ -19,6 +24,9 @@ import com.giog.sinformmobile.R;
  * Fragment newFragment = HomeFragment.newInstance(sectionNumber);
  */
 public class HomeFragment extends Fragment {
+
+    private LinearLayout titleLayout;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -52,7 +60,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        return rootView;
     }
 
     @Override

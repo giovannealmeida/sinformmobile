@@ -1,18 +1,26 @@
 package com.giog.sinformmobile.fragments;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.Typeface;
-import android.os.Build;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
+import com.giog.sinformmobile.model.User;
+import com.giog.sinformmobile.webservice.SinformREST;
+
+import java.util.List;
 
 /**
  * Subcalsse de {@link Fragment}.
@@ -25,6 +33,15 @@ import com.giog.sinformmobile.R;
  */
 public class HomeFragment extends Fragment {
 
+    private final String TAG = "HomeFragment";
+
+    private ProgressBar progressBar;
+    private TextView tvEmptyText;
+    private TextView tvDescription;
+
+    private LoadDataTask loadDataTask;
+
+    private SinformREST sinformREST;
     private LinearLayout titleLayout;
 
     /**
@@ -50,10 +67,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
+        this.sinformREST = new SinformREST();
     }
 
     @Override
@@ -61,18 +75,19 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        this.tvDescription = (TextView) rootView.findViewById(R.id.tvDescription);
+        this.progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        this.tvEmptyText = (TextView) rootView.findViewById(R.id.tvEmptyText);
+
+        this.loadDataTask = new LoadDataTask();
+        loadDataTask.execute();
+
         return rootView;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -80,4 +95,65 @@ public class HomeFragment extends Fragment {
         super.onDetach();
     }
 
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private class LoadDataTask extends AsyncTask<Void, Void, List<User>> {
+
+        protected String message;
+
+        @Override
+        protected List<User> doInBackground(Void... params) {
+
+            message = "";
+            if (!isOnline(getActivity().getApplicationContext())) {
+                message = "Sem conexão com Internet";
+                return null;
+            }
+
+            try {
+                return sinformREST.getUser(0);
+            } catch (Exception e) {
+                message = e.getMessage();
+                Log.w(TAG, e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(List<User> user) {
+            super.onPostExecute(user);
+
+            String users = "";
+
+            if (user != null && !isCancelled()) {
+                for (int i = 0; i < user.size(); i++) {
+                    users = users + user.get(i).getName() + "\n";
+                }
+                tvDescription.setText(users);
+                tvDescription.setVisibility(View.VISIBLE);
+
+            } else {
+                Toast.makeText(getActivity(),"Nenhum usuário encontrado", Toast.LENGTH_LONG).show();
+                tvEmptyText.setVisibility(View.VISIBLE);
+            }
+
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 }

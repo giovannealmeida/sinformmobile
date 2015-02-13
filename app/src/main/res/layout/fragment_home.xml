@@ -10,12 +10,7 @@
 
     <LinearLayout
         android:id="@+id/titleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@android:color/white"
-        android:padding="5dp"
-        android:elevation="10dp">
+        style="@style/mainLayout">
 
         <!--<TextView-->
             <!--android:id="@+id/edition"-->
@@ -57,7 +52,8 @@
             android:paddingBottom="10dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -66,20 +62,17 @@
                 android:textSize="20sp"
                 android:visibility="gone"
                 android:text="@string/lorem"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tvEmptyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Impossível carregar dados"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/tvEmptyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Impossível carregar dados"
-        android:textColor="@android:color/white"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:padding="8dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

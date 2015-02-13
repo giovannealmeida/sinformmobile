@@ -1,0 +1,13 @@
+>> Conexão com internet
+Testar com 3G
+Testar sem conexão com Internet
+
+>> Login
+Testar com nome de usuário errado e senha certa
+Testar com nome de usuário certo e senha errada
+Testar com nome de usuário errado e senha errada
+
+>> Comportamento da tela de Splash
+Pressionar a tecla Home enquanto na tela de Splash
+Pressionar a tecla de voltar enquanto na tela de Splash
+Cancelar o processo do aplicativo enquanto na tela de Splash

@@ -149,7 +149,7 @@ public class HomeFragment extends Fragment {
                 tvDescription.setVisibility(View.VISIBLE);
 
             } else {
-                Toast.makeText(getActivity(),"Nenhum usuário encontrado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),message, Toast.LENGTH_LONG).show();
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
 

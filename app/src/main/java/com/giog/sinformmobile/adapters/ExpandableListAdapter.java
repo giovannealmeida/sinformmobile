@@ -10,11 +10,10 @@ import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.fragments.ProgrammingFragment;
-import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.model.Event;
 import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +23,7 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private List<String> listDays;
-	private HashMap<String,List<Course>> listCourses;
+	private HashMap<String,List<Event>> listCourses;
 	private Context context;
 
 	private int lastExpandedGroupPosition = -1;
@@ -34,7 +33,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private SinformREST sinformRest;
 
-	public ExpandableListAdapter(List<String> listDays, HashMap<String, List<Course>> listCourses, ExpandableListView expandableListView, Context context) {
+	public ExpandableListAdapter(List<String> listDays, HashMap<String, List<Event>> listCourses, ExpandableListView expandableListView, Context context) {
 		this.listDays = listDays;
 		this.context = context;
 		this.expandableListView = expandableListView;
@@ -58,7 +57,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-		final Course course = (Course) getChild(groupPosition, childPosition);
+		final Event event = (Event) getChild(groupPosition, childPosition);
 
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -74,8 +73,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 
-		txtTime.setText(String.valueOf(formatter.format(course.getTime())) + " - ");
-		txtName.setText(course.getName());
+		txtTime.setText(String.valueOf(formatter.format(event.getTime())) + " - ");
+        switch (event.getType()){
+            case 1:
+                txtName.setText(event.getName() + " P");
+                break;
+            case 2:
+                txtName.setText(event.getName() + " MC");
+                break;
+        }
+
 		return convertView;
 	}
 

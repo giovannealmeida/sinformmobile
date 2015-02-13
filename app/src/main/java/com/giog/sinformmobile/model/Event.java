@@ -9,15 +9,18 @@ import java.util.Date;
 /**
  * Created by Giovanne on 12/02/2015.
  */
-public class Course {
+public class Event {
 
     private int id;
     private String name;
 //    private long time;
     private Date time;
     private String description;
+    /* 1- Palestras
+       2- Minicursos*/
+    private int type;
 
-//    public Course(JSONObject jsonObject) {
+//    public Event(JSONObject jsonObject) {
 //        if(jsonObject != null) {
 //            this.id = jsonObject.optInt("id");
 //            this.name = jsonObject.optString("name");
@@ -27,7 +30,7 @@ public class Course {
 //    }
 
 
-    public Course(int id, String name, String time, String description) {
+    public Event(int id, String name, String time, String description, int type) {
         this.id = id;
         this.name = name;
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
@@ -37,6 +40,7 @@ public class Course {
             e.printStackTrace();
         }
         this.description = description;
+        this.type = type;
     }
 
     public int getId() {
@@ -50,4 +54,8 @@ public class Course {
     public String getDescription() { return description; }
 
     public Date getTime() { return time; }
+
+    public int getType() {
+        return type;
+    }
 }

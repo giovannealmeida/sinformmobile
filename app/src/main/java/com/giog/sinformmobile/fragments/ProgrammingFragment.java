@@ -115,9 +115,9 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
         listDays = new ArrayList<String>();
         listCourses = new HashMap<String,List<Event>>();
 
-        listDays.add("Segunda-feira 16/02");
-        listDays.add("Terça-feira 17/02");
-        listDays.add("Quarta-feira 18/02");
+        listDays.add("Segunda-feira");
+        listDays.add("Terça-feira");
+        listDays.add("Quarta-feira");
 
         listCourses.put(listDays.get(0),segundaE);
         listCourses.put(listDays.get(1),tercaE);

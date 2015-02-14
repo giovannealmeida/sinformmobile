@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
@@ -62,7 +63,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.item_course, null);
+			convertView = infalInflater.inflate(R.layout.item_event, null);
 		}
 
 		TextView txtTime = (TextView) convertView
@@ -71,15 +72,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		TextView txtName = (TextView) convertView
 				.findViewById(R.id.tvName);
 
+        ImageView ivTypeImg = (ImageView) convertView.findViewById(R.id.ivTypeImg);
+
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 
 		txtTime.setText(String.valueOf(formatter.format(event.getTime())) + " - ");
+        txtName.setText(event.getName());
         switch (event.getType()){
             case 1:
-                txtName.setText(event.getName() + " P");
+                ivTypeImg.setImageResource(R.drawable.img_lecture);
                 break;
             case 2:
-                txtName.setText(event.getName() + " MC");
+                ivTypeImg.setImageResource(R.drawable.img_course);
                 break;
         }
 

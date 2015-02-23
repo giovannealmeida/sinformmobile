@@ -33,13 +33,11 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
-    private final String TAG = "HomeFragment";
-
     private ProgressBar progressBar;
     private TextView tvEmptyText;
     private TextView tvDescription;
 
-    private LoadDataTask loadDataTask;
+    private GetData getData;
 
     private SinformREST sinformREST;
     private LinearLayout titleLayout;
@@ -79,8 +77,8 @@ public class HomeFragment extends Fragment {
         this.progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) rootView.findViewById(R.id.tvEmptyText);
 
-        this.loadDataTask = new LoadDataTask();
-        loadDataTask.execute();
+        this.getData = new GetData();
+        getData.execute();
 
         return rootView;
     }
@@ -106,7 +104,7 @@ public class HomeFragment extends Fragment {
         return false;
     }
 
-    private class LoadDataTask extends AsyncTask<Void, Void, List<User>> {
+    private class GetData extends AsyncTask<Void, Void, List<User>> {
 
         protected String message;
 
@@ -123,7 +121,6 @@ public class HomeFragment extends Fragment {
                 return sinformREST.getUser(0);
             } catch (Exception e) {
                 message = e.getMessage();
-                Log.w(TAG, e);
             }
 
             return null;

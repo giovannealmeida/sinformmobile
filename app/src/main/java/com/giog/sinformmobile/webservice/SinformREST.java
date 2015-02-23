@@ -34,13 +34,10 @@ public class SinformREST {
     public static final String GET_USER = DOMINIO + "/example/users/format/json";
     public static final String GET_ABOUT = DOMINIO + "/example/users/format/json";
 
-    private static final String TAG = SinformREST.class.getSimpleName();
-
     public List<User> getUser(int userId) throws Exception {
 
         try {
             List<NameValuePair> args = new ArrayList<NameValuePair>();
-//            args.add(new BasicNameValuePair("companyId", companyId + ""));
 
             JSONObject json = getJsonResult(GET_USER, args);
             if (json.optString("message") != "null") {
@@ -56,13 +53,10 @@ public class SinformREST {
 
             return list;
         } catch (JSONException e) {
-            Log.w(TAG, e);
             throw new Exception("Falha na conexão");
         } catch (SocketException e) {
-            Log.w(TAG, e);
             throw new Exception("Falha na conexão");
         } catch (IOException e) {
-            Log.w(TAG, e);
             throw new Exception("Falha ao receber arquivo");
         }
     }
@@ -83,7 +77,6 @@ public class SinformREST {
 
         if (httpResponse.getStatusLine().getStatusCode() / 100 == HttpStatus.SC_OK / 100) {
             String response = HttpUtil.streamToString(httpResponse.getEntity().getContent());
-            Log.d(TAG, response);
             return new JSONObject(response);
 
         } else {

@@ -132,14 +132,16 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-        Event course = (Event) adapter.getChild(groupPosition,childPosition);
-        Toast.makeText(getActivity(),course.getName(),Toast.LENGTH_SHORT).show();
+        Event event = (Event) adapter.getChild(groupPosition,childPosition);
+        Toast.makeText(getActivity(),event.getName(),Toast.LENGTH_SHORT).show();
 //        Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
 //        intent.putExtra("course", (android.os.Parcelable) course);
 //        startActivity(intent);
 
         return false;
     }
+
+
 
     @Override
     public void onDetach() {

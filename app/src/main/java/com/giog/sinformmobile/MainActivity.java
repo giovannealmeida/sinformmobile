@@ -18,6 +18,8 @@ import com.giog.sinformmobile.fragments.MapFragment;
 import com.giog.sinformmobile.fragments.OrganizationFragment;
 import com.giog.sinformmobile.fragments.ProgrammingFragment;
 import com.giog.sinformmobile.fragments.SupportFragment;
+import com.giog.sinformmobile.model.User;
+import com.giog.sinformmobile.utils.LoginDialog;
 
 
 public class MainActivity extends ActionBarActivity
@@ -34,6 +36,7 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
 
     private boolean isHome;
+    public static User SESSION_USER = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,17 +121,10 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else
+            super.onBackPressed();
     }
 }

@@ -1,5 +1,6 @@
 package com.giog.sinformmobile;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -21,6 +22,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.giog.sinformmobile.fragments.LoginFragment;
+import com.giog.sinformmobile.utils.LoginDialog;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -57,6 +61,7 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    public static Menu menu;
 
     public NavigationDrawerFragment() {
     }
@@ -243,6 +248,7 @@ public class NavigationDrawerFragment extends Fragment {
             inflater.inflate(R.menu.global, menu);
             showGlobalContextActionBar();
         }
+        this.menu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -253,7 +259,12 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_login) {
-            Toast.makeText(getActivity(), "*Exibe tela de login*", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "*Exibe tela de login*", Toast.LENGTH_SHORT).show();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//            transaction.replace(R.id.container, new LoginFragment());
+            transaction.add(R.id.container, new LoginFragment()).addToBackStack(null);
+            transaction.commit();
             return true;
         }
 

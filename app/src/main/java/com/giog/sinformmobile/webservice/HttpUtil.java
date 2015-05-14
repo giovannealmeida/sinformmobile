@@ -38,9 +38,9 @@ public class HttpUtil {
 
     private static final String TAG = HttpUtil.class.getSimpleName();
 
-    public static final HttpResponse httpPost(String url, List<NameValuePair> nameValuePairs, String auth, String accept) throws IOException {
+    public static final HttpResponse httpPost(String url, List<NameValuePair> args, String auth, String accept) throws IOException {
 
-        DefaultHttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
+        DefaultHttpClient httpClient = new DefaultHttpClient();
 
         // set http params
         HttpParams params = httpClient.getParams();
@@ -49,8 +49,10 @@ public class HttpUtil {
         httpClient.setParams(params);
 
         HttpPost httpPost = new HttpPost(url);
-        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+        if(args != null)
+            httpPost.setEntity(new UrlEncodedFormEntity(args));
+//        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+//        httpPost.setHeader("Content-Type", "application/json;charset=UTF-8");
 
         if (auth != null) {
             httpPost.setHeader("Authorization", auth);

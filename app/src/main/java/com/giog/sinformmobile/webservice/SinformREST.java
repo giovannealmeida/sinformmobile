@@ -29,10 +29,10 @@ public class SinformREST {
 
     //Domínio
 //    public static final String DOMINIO = "http://nbcgib.uesc.br/sinform"; //Oficial remoto
-//    public static final String DOMINIO = "http://192.168.1.101"; //Casa local
+    public static final String DOMINIO = "http://192.168.1.104"; //Casa local
 //    public static final String DOMINIO = "http://192.168.32.52"; //UESC local
 //    public static final String DOMINIO = "http://192.168.0.104"; //Casa Amanda local
-    public static final String DOMINIO = "http://sinformapp.comlu.com"; //000WebHost remoto
+//    public static final String DOMINIO = "http://sinformapp.comlu.com"; //000WebHost remoto
 
 
     //Webservice PATHs
@@ -76,7 +76,7 @@ public class SinformREST {
 
             JSONObject json = getJsonResult(GET_USER, args);
 
-            if (!json.optString("status_message").equals("null")) {
+            if (!json.optString("status_message").equals("")) {
                 throw new Exception(json.optString("status_message"));
             }
 
@@ -94,7 +94,7 @@ public class SinformREST {
 
         try {
             JSONObject json = getJsonResult(GET_ABOUT, null);
-            if (!json.optString("status_message").equals("null")) {
+            if (!json.optString("status_message").equals("")) {
                 throw new Exception(json.optString("status_message"));
             }
 

@@ -2,6 +2,7 @@ package com.giog.sinformmobile.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
+import com.giog.sinformmobile.activities.CourseDetails;
 import com.giog.sinformmobile.adapters.CourseListAdapter;
 import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.webservice.SinformREST;
@@ -29,7 +32,7 @@ import java.util.List;
  * Use the {@link CourseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseFragment extends Fragment {
+public class CourseFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView lvCourse;
     private CourseListAdapter listAdapter;
@@ -62,6 +65,7 @@ public class CourseFragment extends Fragment {
         this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvCourse);
 
         this.lvCourse.setAdapter(listAdapter);
+        this.lvCourse.setOnItemClickListener(this);
 
         this.getData = new GetData();
         getData.execute();
@@ -78,6 +82,13 @@ public class CourseFragment extends Fragment {
         }
 
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Course course = listAdapter.getItem(position);
+
+        startActivity(new Intent(getActivity(),CourseDetails.class).putExtra("course",course));
     }
 
     private class GetData extends AsyncTask<Void, Void, List<Course>> {

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by Giovanne on 09/02/2015.
  */
-public class Course {
+public class Course implements Serializable {
 
     private int id;
     private String title;
@@ -63,6 +64,37 @@ public class Course {
 
     public Calendar getDate() {
         return date;
+    }
+
+    public String getFormattedDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        return dateFormat.format(getDate().getTime());
+    }
+
+    public String getFormattedTime(){
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        return timeFormat.format(getDate().getTime());
+    }
+
+    public String getDayOfWeek(){
+        switch (date.get(Calendar.DAY_OF_WEEK)){
+            case Calendar.MONDAY:
+                return "Segunda";
+            case Calendar.TUESDAY:
+                return "Terça";
+            case Calendar.THURSDAY:
+                return "Quarta";
+            case Calendar.WEDNESDAY:
+                return "Quinta";
+            case Calendar.FRIDAY:
+                return "Sexta";
+            case Calendar.SATURDAY:
+                return "Sábado";
+            case Calendar.SUNDAY:
+                return "Domingo";
+            default:
+                return "????";
+        }
     }
 
     public String getLocal() {

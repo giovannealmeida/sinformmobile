@@ -74,42 +74,13 @@ public class CourseListAdapter extends BaseAdapter {
         TextView tvAbout = (TextView) convertView.findViewById(R.id.tvAbout);
 
         Course course = list.get(position);
-        Calendar cal = course.getDate();
 
         tvTitle.setText(course.getTitle());
+        tvTitle.setSelected(true);
         tvAbout.setText(course.getAbout());
-
-        SimpleDateFormat date = new SimpleDateFormat("dd/MM");
-        SimpleDateFormat time = new SimpleDateFormat("HH:mm");
-
-        tvTime.setText(time.format(cal.getTime())+" - ");
-        tvDate.setText(date.format(cal.getTime()));
-
-        switch (cal.get(Calendar.DAY_OF_WEEK)){
-            case Calendar.MONDAY:
-                tvDay.setText("(Segunda)");
-                break;
-            case Calendar.TUESDAY:
-                tvDay.setText("(Terça)");
-                break;
-            case Calendar.THURSDAY:
-                tvDay.setText("(Quarta)");
-                break;
-            case Calendar.WEDNESDAY:
-                tvDay.setText("(Quinta)");
-                break;
-            case Calendar.FRIDAY:
-                tvDay.setText("(Sexta)");
-                break;
-            case Calendar.SATURDAY:
-                tvDay.setText("(Sábado)");
-                break;
-            case Calendar.SUNDAY:
-                tvDay.setText("(Domingo)");
-                break;
-            default:
-                tvDay.setText("????");
-        }
+        tvTime.setText(course.getFormattedTime()+" - ");
+        tvDate.setText(course.getFormattedDate());
+        tvDay.setText(course.getDayOfWeek());
 
         return convertView;
     }

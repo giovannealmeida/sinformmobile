@@ -15,19 +15,14 @@
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
-        style="@style/itemTextNivel2"
-        android:textColor="@android:color/white"
-        android:padding="3dp"
         android:text="Title"
-        android:background="#4298F9"/>
+        style="@style/itemTitleText"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
-        android:background="@android:color/white"
-        android:elevation="2dp"
-        android:padding="5dp">
+        style="@style/contentBoxWhite">
 
         <TextView
             android:id="@+id/tvTime"

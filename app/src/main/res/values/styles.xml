@@ -6,9 +6,40 @@
         <!--<item name="android:background">@android:color/darker_gray</item>-->
     </style>
 
-    <style name="titleText">
+    <style name="titleText" parent="titleBox">
         <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="titleTextNivel2" parent="titleBox">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="titleBox">
+        <!--style="@style/itemTextNivel2"-->
+        <item name="android:padding">3dp</item>
+        <item name="android:background">#4298F9</item>
+        <item name="android:elevation">3dp</item>
+    </style>
+
+    <style name="contentBoxWhite">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+
+    <!--Estilo de texto para conteúdos de nível 2 de listas-->
+    <style name="contentTextNivel2">
+        <item name="android:textSize">20sp</item>
         <item name="android:color">@android:color/black</item>
+    </style>
+
+    <style name="itemTitleText" parent="titleBox">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <!--Estilo de texto para itens de nível 1 de listas-->

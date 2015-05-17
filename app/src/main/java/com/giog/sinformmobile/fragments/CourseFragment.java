@@ -1,47 +1,42 @@
 package com.giog.sinformmobile.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
+import com.giog.sinformmobile.adapters.CourseListAdapter;
+import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.webservice.SinformREST;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CourseFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link CourseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class CourseFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CourseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-
-    private Button btnOpenActivity;
+    private ListView lvCourse;
+    private CourseListAdapter listAdapter;
+    private ProgressBar progressBar;
+    private TextView tvEmptyText;
+    private SinformREST sinformREST = new SinformREST();
+    private GetData getData;
 
     public static CourseFragment newInstance(int sectionNumber) {
         CourseFragment fragment = new CourseFragment();
@@ -56,67 +51,76 @@ public class CourseFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_course, container, false);
-//        btnOpenActivity = (Button) getActivity().findViewById(R.id.openActivity);
-//        btnOpenActivity.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Fragment fragment = new HomeFragment();
-//            }
-//        });
+
+        listAdapter = new CourseListAdapter(null,getActivity());
+        this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
+        this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
+        this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvCourse);
+
+        this.lvCourse.setAdapter(listAdapter);
+
+        this.getData = new GetData();
+        getData.execute();
+
         return viewRoot;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private class GetData extends AsyncTask<Void, Void, List<Course>> {
+
+        protected String message;
+
+        @Override
+        protected List<Course> doInBackground(Void... params) {
+
+            message = "";
+            if (!isOnline(getActivity().getApplicationContext())) {
+                message = "Sem conexão com Internet";
+                return null;
+            }
+
+            try {
+                return sinformREST.getCourse();
+            } catch (Exception e) {
+                message = e.getMessage();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(List<Course> list) {
+            super.onPostExecute(list);
+
+            if (list != null && !isCancelled()) {
+                listAdapter.setList(list);
+                listAdapter.notifyDataSetChanged();
+            }
+
+            progressBar.setVisibility(View.GONE);
+            if (listAdapter.isEmpty()) {
+                tvEmptyText.setVisibility(View.VISIBLE);
+            }
         }
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
-
 }

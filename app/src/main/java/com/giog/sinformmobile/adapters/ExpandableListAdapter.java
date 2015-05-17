@@ -79,11 +79,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		txtTime.setText(String.valueOf(formatter.format(event.getTime())) + " - ");
         txtName.setText(event.getName());
         switch (event.getType()){
-            case 1:
-                ivTypeImg.setImageResource(R.drawable.img_lecture);
-                break;
-            case 2:
+            case 1: //Minicurso
                 ivTypeImg.setImageResource(R.drawable.img_course);
+                break;
+            case 2: //Palestra
+                ivTypeImg.setImageResource(R.drawable.img_lecture);
                 break;
         }
 

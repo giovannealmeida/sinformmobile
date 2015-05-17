@@ -23,6 +23,12 @@
         <item name="android:color">@android:color/black</item>
     </style>
 
+    <!--Estilo de texto para itens de nível 3 de listas-->
+    <style name="itemTextNivel3">
+        <item name="android:textSize">16sp</item>
+        <item name="android:color">@android:color/black</item>
+    </style>
+
     <!--Layout para itens de listas-->
     <style name="itemLayout">
         <item name="android:layout_width">match_parent</item>

@@ -16,8 +16,8 @@ public class Event {
 //    private long time;
     private Date time;
     private String description;
-    /* 1- Palestras
-       2- Minicursos*/
+    /* 1- Minicurso
+       2- Palestra*/
     private int type;
 
 //    public Event(JSONObject jsonObject) {

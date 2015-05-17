@@ -7,14 +7,14 @@ import java.io.File;
 /**
  * Created by Giovanne on 12/02/2015.
  */
-public class Instructor {
+public class Guest {
     private int id;
     private String name;
     private String description;
 //    private File photo;
 
 
-    public Instructor(JSONObject jsonObject) {
+    public Guest(JSONObject jsonObject) {
         if(jsonObject != null) {
             this.id = jsonObject.optInt("id");
             this.name = jsonObject.optString("name");

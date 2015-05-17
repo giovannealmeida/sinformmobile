@@ -3,6 +3,7 @@ package com.giog.sinformmobile.webservice;
 import android.util.Base64;
 import android.util.Log;
 
+import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.model.User;
 import com.giog.sinformmobile.R;
 
@@ -29,16 +30,18 @@ public class SinformREST {
 
     //Domínio
 //    public static final String DOMINIO = "http://nbcgib.uesc.br/sinform"; //Oficial remoto
-    public static final String DOMINIO = "http://192.168.1.104"; //Casa local
+//    public static final String DOMINIO = "http://192.168.1.104"; //Casa local
 //    public static final String DOMINIO = "http://192.168.32.52"; //UESC local
 //    public static final String DOMINIO = "http://192.168.0.104"; //Casa Amanda local
-//    public static final String DOMINIO = "http://sinformapp.comlu.com"; //000WebHost remoto
+    public static final String DOMINIO = "http://sinformapp.comlu.com"; //000WebHost remoto
+//    public static final String DOMINIO = "http://sinformapp.890m.com"; //Hostinger remoto
 
 
     //Webservice PATHs
 //    public static final String GET_USER = DOMINIO + "/example/users/format/json";
     public static final String GET_USER = DOMINIO + "/REST/user/login.php";
     public static final String GET_ABOUT = DOMINIO + "/REST/about/getAbout.php";
+    public static final String GET_COURSE = DOMINIO + "/REST/course/getCourse.php";
 
     public List<User> getUser(int userId) throws Exception {
 
@@ -67,6 +70,32 @@ public class SinformREST {
         }
     }
 
+    public List<Course> getCourse() throws Exception {
+
+        try {
+
+            JSONObject json = getJsonResult(GET_COURSE, null);
+            if (!json.optString("status_message").equals("null")) {
+                throw new Exception(json.optString("status_message"));
+            }
+
+            List<Course> list = new ArrayList<Course>();
+            JSONArray jsonArray = json.getJSONArray("data");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                list.add(new Course(jsonArray.getJSONObject(i)));
+            }
+
+            return list;
+        } catch (JSONException e) {
+            throw new Exception("Falha na conexão");
+        } catch (SocketException e) {
+            throw new Exception("Falha na conexão");
+        } catch (IOException e) {
+            throw new Exception("Falha ao receber arquivo");
+        }
+    }
+
     public User doLogin(String email, String password)throws Exception {
 
         try {
@@ -76,7 +105,7 @@ public class SinformREST {
 
             JSONObject json = getJsonResult(GET_USER, args);
 
-            if (!json.optString("status_message").equals("")) {
+            if (!json.optString("status_message").equals("null")) {
                 throw new Exception(json.optString("status_message"));
             }
 
@@ -94,7 +123,8 @@ public class SinformREST {
 
         try {
             JSONObject json = getJsonResult(GET_ABOUT, null);
-            if (!json.optString("status_message").equals("")) {
+
+            if (!json.optString("status_message").equals("null")) {
                 throw new Exception(json.optString("status_message"));
             }
 

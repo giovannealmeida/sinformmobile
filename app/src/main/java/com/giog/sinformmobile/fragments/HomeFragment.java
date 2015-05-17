@@ -100,13 +100,11 @@ public class HomeFragment extends Fragment {
         return false;
     }
 
-//    private class GetData extends AsyncTask<Void, Void, List<User>> {
     private class GetData extends AsyncTask<Void, Void, String> {
 
         protected String message;
 
         @Override
-//        protected List<User> doInBackground(Void... params) {
         protected String doInBackground(Void... params) {
 
             message = "";
@@ -116,7 +114,6 @@ public class HomeFragment extends Fragment {
             }
 
             try {
-//                return sinformREST.getUser(0);
                 return sinformREST.getAbout();
             } catch (Exception e) {
                 message = e.getMessage();
@@ -132,17 +129,12 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-//        protected void onPostExecute(List<User> user) {
         protected void onPostExecute(String user) {
             super.onPostExecute(user);
 
             String users = "";
 
             if (user != null && !isCancelled()) {
-//                for (int i = 0; i < user.size(); i++) {
-//                    users = users + user.get(i).getName() + "\n";
-//                }
-//                tvDescription.setText(users);
                 tvDescription.setText(user);
                 tvDescription.setVisibility(View.VISIBLE);
 

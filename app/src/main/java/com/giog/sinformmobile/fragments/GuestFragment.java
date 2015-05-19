@@ -17,35 +17,38 @@ import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.activities.CourseDetailsActivity;
+import com.giog.sinformmobile.activities.GuestDetailsActivity;
 import com.giog.sinformmobile.adapters.CourseListAdapter;
+import com.giog.sinformmobile.adapters.GuestListAdapter;
 import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.model.Guest;
 import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link CourseFragment#newInstance} factory method to
+ * A simple {@link android.support.v4.app.Fragment} subclass.
+ * Use the {@link com.giog.sinformmobile.fragments.GuestFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class GuestFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private ListView lvCourse;
-    private CourseListAdapter listAdapter;
+    private ListView lvGuest;
+    private GuestListAdapter listAdapter;
     private ProgressBar progressBar;
     private TextView tvEmptyText;
     private SinformREST sinformREST = new SinformREST();
     private GetData getData;
 
-    public static CourseFragment newInstance(int sectionNumber) {
-        CourseFragment fragment = new CourseFragment();
+    public static GuestFragment newInstance(int sectionNumber) {
+        GuestFragment fragment = new GuestFragment();
         Bundle args = new Bundle();
         args.putInt("section_number", sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public CourseFragment() {
+    public GuestFragment() {
         // Required empty public constructor
     }
 
@@ -53,15 +56,15 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View viewRoot = inflater.inflate(R.layout.fragment_course, container, false);
+        View viewRoot = inflater.inflate(R.layout.fragment_guest, container, false);
 
-        listAdapter = new CourseListAdapter(null,getActivity());
+        listAdapter = new GuestListAdapter(null,getActivity());
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
-        this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvCourse);
+        this.lvGuest = (ListView) viewRoot.findViewById(R.id.lvGuest);
 
-        this.lvCourse.setAdapter(listAdapter);
-        this.lvCourse.setOnItemClickListener(this);
+        this.lvGuest.setAdapter(listAdapter);
+        this.lvGuest.setOnItemClickListener(this);
 
         this.getData = new GetData();
         getData.execute();
@@ -82,17 +85,17 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Course course = listAdapter.getItem(position);
+        Guest guest = listAdapter.getItem(position);
 
-        startActivity(new Intent(getActivity(),CourseDetailsActivity.class).putExtra("course",course));
+        startActivity(new Intent(getActivity(),GuestDetailsActivity.class).putExtra("guest",guest));
     }
 
-    private class GetData extends AsyncTask<Void, Void, List<Course>> {
+    private class GetData extends AsyncTask<Void, Void, List<Guest>> {
 
         protected String message;
 
         @Override
-        protected List<Course> doInBackground(Void... params) {
+        protected List<Guest> doInBackground(Void... params) {
 
             message = "";
             if (!isOnline(getActivity().getApplicationContext())) {
@@ -101,7 +104,7 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
             }
 
             try {
-                return sinformREST.getCourse();
+                return sinformREST.getGuest();
             } catch (Exception e) {
                 message = e.getMessage();
             }
@@ -116,7 +119,7 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
         }
 
         @Override
-        protected void onPostExecute(List<Course> list) {
+        protected void onPostExecute(List<Guest> list) {
             super.onPostExecute(list);
 
             if (list != null && !isCancelled()) {

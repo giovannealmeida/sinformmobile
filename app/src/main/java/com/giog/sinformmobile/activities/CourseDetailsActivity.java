@@ -1,16 +1,21 @@
 package com.giog.sinformmobile.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.model.Course;
 
-public class CourseDetails extends ActionBarActivity {
+public class CourseDetailsActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Course course;
     private TextView tvInstructor;
@@ -26,8 +31,12 @@ public class CourseDetails extends ActionBarActivity {
             finish();
         }
 
+        SpannableString content = new SpannableString(course.getGuest().getName());
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+
         tvInstructor = (TextView) findViewById(R.id.tvInstructor);
-        tvInstructor.setText(String.valueOf(course.getGuest()));
+        tvInstructor.setText(content);
+        tvInstructor.setOnClickListener(this);
         ((TextView) findViewById(R.id.tvAbout)).setText(course.getAbout());
         ((TextView) findViewById(R.id.tvDate)).setText(course.getFormattedDate()+" - "+course.getDayOfWeek());
         ((TextView) findViewById(R.id.tvTime)).setText(course.getFormattedTime());
@@ -50,5 +59,14 @@ public class CourseDetails extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvInstructor:
+                startActivity(new Intent(this, GuestDetailsActivity.class).putExtra("guest", course.getGuest()));
+                break;
+        }
     }
 }

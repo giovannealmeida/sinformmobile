@@ -3,14 +3,16 @@ package com.giog.sinformmobile.model;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Created by Giovanne on 12/02/2015.
  */
-public class Guest {
+public class Guest implements Serializable{
     private int id;
     private String name;
-    private String description;
+    private String email;
+    private String about;
 //    private File photo;
 
 
@@ -18,7 +20,8 @@ public class Guest {
         if(jsonObject != null) {
             this.id = jsonObject.optInt("id");
             this.name = jsonObject.optString("name");
-            this.description = jsonObject.optString("description");
+            this.email = jsonObject.optString("email");
+            this.about = jsonObject.optString("about");
         }
     }
 
@@ -30,7 +33,11 @@ public class Guest {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAbout() {
+        return about;
     }
 }

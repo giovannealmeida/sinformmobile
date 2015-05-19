@@ -6,20 +6,52 @@
         <!--<item name="android:background">@android:color/darker_gray</item>-->
     </style>
 
-    <style name="titleText" parent="titleBox">
+    <style name="titleTextCourse" parent="titleBoxCourse">
         <item name="android:textSize">40sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="titleTextNivel2" parent="titleBox">
+    <style name="titleTextNivel2Course" parent="titleBoxCourse">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="titleBox">
+    <style name="titleTextGuest" parent="titleBoxGuest">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="titleTextNivel2Guest" parent="titleBoxGuest">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="titleTextLecture" parent="titleBoxLecture">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="titleTextNivel2Lecture" parent="titleBoxLecture">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="titleBoxGuest">
         <!--style="@style/itemTextNivel2"-->
         <item name="android:padding">3dp</item>
-        <item name="android:background">#4298F9</item>
+        <item name="android:background">@color/primary_guest</item>
+        <item name="android:elevation">3dp</item>
+    </style>
+
+    <style name="titleBoxCourse">
+        <item name="android:padding">3dp</item>
+        <item name="android:background">@color/primary_course</item>
+        <item name="android:elevation">3dp</item>
+    </style>
+
+    <style name="titleBoxLecture">
+        <item name="android:padding">3dp</item>
+        <item name="android:background">@color/primary_lecture</item>
         <item name="android:elevation">3dp</item>
     </style>
 
@@ -31,13 +63,35 @@
         <item name="android:layout_marginRight">5dp</item>
     </style>
 
+    <!--Estilo de link para conteúdos de guests-->
+    <style name="linkTextNivel2Guest" parent="contentTextNivel2">
+        <item name="android:textColor">@color/acent_primary_guest</item>
+    </style>
+
+    <!--Estilo de link para conteúdos de courses-->
+    <style name="linkTextNivel2Course" parent="contentTextNivel2">
+        <item name="android:textColor">@color/acent_primary_course</item>
+    </style>
+
+    <!--Estilo de link para conteúdos de lectures-->
+    <style name="linkTextNivel2Lecture" parent="contentTextNivel2">
+        <item name="android:textColor">@color/acent_primary_lecture</item>
+    </style>
+
     <!--Estilo de texto para conteúdos de nível 2 de listas-->
     <style name="contentTextNivel2">
         <item name="android:textSize">20sp</item>
         <item name="android:color">@android:color/black</item>
     </style>
 
-    <style name="itemTitleText" parent="titleBox">
+    <!--Estilo de título para itens de course-->
+    <style name="itemTitleTextCourse" parent="titleBoxCourse">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!--Estilo de título para itens de guest-->
+    <style name="itemTitleTextGuest" parent="titleBoxGuest">
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>

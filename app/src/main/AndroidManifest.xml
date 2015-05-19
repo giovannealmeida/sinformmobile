@@ -21,8 +21,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CourseDetails"
+            android:name=".activities.CourseDetailsActivity"
             android:label="@string/title_activity_course_details" >
+        </activity>
+        <activity
+            android:name=".activities.GuestDetailsActivity"
+            android:label="@string/title_activity_guest_details" >
         </activity>
     </application>
 

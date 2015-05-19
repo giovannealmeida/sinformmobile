@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.giog.sinformmobile.fragments.ContactFragment;
 import com.giog.sinformmobile.fragments.CourseFragment;
+import com.giog.sinformmobile.fragments.GuestFragment;
 import com.giog.sinformmobile.fragments.HomeFragment;
 import com.giog.sinformmobile.fragments.LectureFragment;
 import com.giog.sinformmobile.fragments.MapFragment;
@@ -76,18 +77,22 @@ public class MainActivity extends ActionBarActivity
                 fragment = LectureFragment.newInstance(position + 1);
                 break;
             case 4:
+                mTitle = getString(R.string.title_guests);
+                fragment = GuestFragment.newInstance(position + 1);
+                break;
+            case 5:
                 mTitle = getString(R.string.title_map);
                 fragment = MapFragment.newInstance(position + 1);
                 break;
-            case 5:
+            case 6:
                 mTitle = getString(R.string.title_organization);
                 fragment = OrganizationFragment.newInstance(position + 1);
                 break;
-            case 6:
+            case 7:
                 mTitle = getString(R.string.title_support);
                 fragment = SupportFragment.newInstance(position + 1);
                 break;
-            case 7:
+            case 8:
                 mTitle = getString(R.string.title_contact);
                 fragment = ContactFragment.newInstance(position + 1);
                 break;

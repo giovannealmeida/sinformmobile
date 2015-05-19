@@ -8,45 +8,21 @@
     style="@style/itemText">
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
-        android:text="Title"
-        style="@style/itemTitleTextCourse"/>
+        android:text="Name"
+        style="@style/itemTitleTextGuest"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
+        android:layout_below="@id/tvName"
         style="@style/contentBoxWhite">
-
-        <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/itemTextNivel2"
-            android:text="00:00 - "/>
-
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_toRightOf="@id/tvTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/itemTextNivel2"
-            android:text="01/01"/>
-
-        <TextView
-            android:id="@+id/tvDay"
-            android:layout_toRightOf="@id/tvDate"
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/itemTextNivel2"
-            android:text="(Day)"/>
 
         <TextView
             android:id="@+id/tvAbout"

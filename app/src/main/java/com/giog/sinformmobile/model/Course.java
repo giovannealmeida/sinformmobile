@@ -2,6 +2,7 @@ package com.giog.sinformmobile.model;
 
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -19,16 +20,16 @@ public class Course implements Serializable {
 
     private int id;
     private String title;
-    private int guest;
+    private Guest guest;
     private Calendar date;
     private String local;
     private String about;
 
-    public Course(JSONObject jsonObject) throws ParseException {
+    public Course(JSONObject jsonObject) throws ParseException, JSONException {
         if(jsonObject != null) {
             this.id = jsonObject.optInt("id");
             this.title = jsonObject.optString("title");
-            this.guest = jsonObject.optInt("guest");
+            this.guest = new Guest(jsonObject.getJSONObject("guest"));
             this.date = getFormattedDate(jsonObject.optString("date")); //2015-09-22 08:00:00
             this.local = jsonObject.optString("local");
             this.about = jsonObject.optString("about");
@@ -58,8 +59,12 @@ public class Course implements Serializable {
         return title;
     }
 
-    public int getGuest() {
+    public Guest getGuest() {
         return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
     }
 
     public Calendar getDate() {

@@ -96,6 +96,12 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!--Estilo de título para itens de lecture-->
+    <style name="itemTitleTextLecture" parent="titleBoxLecture">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <!--Estilo de texto para itens de nível 1 de listas-->
     <style name="itemText">
         <item name="android:textSize">25sp</item>

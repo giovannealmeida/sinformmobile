@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.model.Guest;
+import com.giog.sinformmobile.model.Lecture;
 import com.giog.sinformmobile.model.User;
 import com.giog.sinformmobile.R;
 
@@ -44,6 +45,7 @@ public class SinformREST {
     public static final String GET_ABOUT = DOMINIO + "/REST/about/getAbout.php";
     public static final String GET_COURSE = DOMINIO + "/REST/course/getCourse.php";
     public static final String GET_GUEST = DOMINIO + "/REST/guest/getGuest.php";
+    public static final String GET_LECTURE = DOMINIO + "/REST/lecture/getLecture.php";
 
     public List<User> getUser(int userId) throws Exception {
 
@@ -112,6 +114,32 @@ public class SinformREST {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 list.add(new Course(jsonArray.getJSONObject(i)));
+            }
+
+            return list;
+        } catch (JSONException e) {
+            throw new Exception("Falha na conexão");
+        } catch (SocketException e) {
+            throw new Exception("Falha na conexão");
+        } catch (IOException e) {
+            throw new Exception("Falha ao receber arquivo");
+        }
+    }
+
+    public List<Lecture> getLecture() throws Exception {
+
+        try {
+
+            JSONObject json = getJsonResult(GET_LECTURE, null);
+            if (!json.optString("status_message").equals("null")) {
+                throw new Exception(json.optString("status_message"));
+            }
+
+            List<Lecture> list = new ArrayList<Lecture>();
+            JSONArray jsonArray = json.getJSONArray("data");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                list.add(new Lecture(jsonArray.getJSONObject(i)));
             }
 
             return list;

@@ -20,6 +20,7 @@
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum nisi vel tincidunt cursus. Nam et dolor viverra, egestas dolor et, efficitur felis. Curabitur et sem nulla. Pellentesque in risus gravida, fermentum ex quis, tincidunt sem. Nunc id accumsan libero. Morbi varius, lectus eu aliquam accumsan, odio dolor fermentum tellus, ac condimentum lacus lorem pulvinar nisl. Fusce id neque lobortis, pharetra lacus ac, mattis lacus. <br /> Quebra de linha. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum nisi vel tincidunt cursus. <br /> Nam et dolor viverra, egestas dolor et, efficitur felis. Curabitur et sem nulla. Pellentesque in risus gravida, fermentum ex quis, tincidunt sem. Nunc id accumsan libero. Morbi varius, lectus eu aliquam accumsan, odio dolor fermentum tellus, ac condimentum lacus lorem pulvinar nisl. Fusce id neque lobortis, pharetra lacus ac, mattis lacus.</string>
     <string name="title_activity_course_details">CourseDetailsActivity</string>
     <string name="title_activity_guest_details">GuestDetailsActivity</string>
+    <string name="title_activity_lecture_details">LectureDetailsActivity</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>

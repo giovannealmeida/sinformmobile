@@ -1,0 +1,113 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/dark_primary_lecture"
+    tools:context="com.giog.sinformmobile.activities.LectureDetailsActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/llAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/titleTextNivel2Lecture"
+                android:text="Sobre" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/contentBoxWhite">
+
+                <TextView
+                    android:id="@+id/tvAbout"
+                    android:text="@string/lorem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/contentTextNivel2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llGuest"
+            android:layout_below="@id/llAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/titleTextNivel2Lecture"
+                android:text="Instrutor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/contentBoxWhite">
+
+                <TextView
+                    android:id="@+id/tvInstructor"
+                    style="@style/linkTextNivel2Guest"
+                    android:text="Instrutor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llDateTime"
+            android:layout_below="@id/llGuest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/titleTextNivel2Lecture"
+                android:text="Data e local" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                style="@style/contentBoxWhite">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_below="@id/llGuest"
+                    android:text="Data 01/01"
+                    style="@style/contentTextNivel2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_below="@id/tvDate"
+                    android:text="Hora: 00:00"
+                    style="@style/contentTextNivel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tvLocal"
+                    android:layout_below="@id/tvTime"
+                    android:text="Local: Sala"
+                    style="@style/contentTextNivel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

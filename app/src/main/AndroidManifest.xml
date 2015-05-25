@@ -28,6 +28,10 @@
             android:name=".activities.GuestDetailsActivity"
             android:label="@string/title_activity_guest_details" >
         </activity>
+        <activity
+            android:name=".activities.LectureDetailsActivity"
+            android:label="@string/title_activity_lecture_details" >
+        </activity>
     </application>
 
 </manifest>

@@ -73,7 +73,7 @@ public class MainActivity extends ActionBarActivity
                 fragment = CourseFragment.newInstance(position+1);
                 break;
             case 3:
-                mTitle = getString(R.string.title_courses);
+                mTitle = getString(R.string.title_lectures);
                 fragment = LectureFragment.newInstance(position + 1);
                 break;
             case 4:

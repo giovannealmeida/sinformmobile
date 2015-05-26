@@ -25,6 +25,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/title"/>
 
+        <TextView
+            android:id="@+id/tvCountDown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="data"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
     </LinearLayout>
 
     <ScrollView

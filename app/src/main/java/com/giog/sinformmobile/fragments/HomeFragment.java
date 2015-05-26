@@ -6,7 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,12 @@ import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.webservice.SinformREST;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Subcalsse de {@link Fragment}.
@@ -32,11 +40,12 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView tvEmptyText;
     private TextView tvDescription;
+    private TextView tvCountDown;
+    private Calendar theGreatDay;
 
     private GetData getData;
 
     private SinformREST sinformREST;
-    private LinearLayout titleLayout;
 
     /**
      * Use this factory method to create a new instance of
@@ -72,6 +81,42 @@ public class HomeFragment extends Fragment {
         this.tvDescription = (TextView) rootView.findViewById(R.id.tvDescription);
         this.progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) rootView.findViewById(R.id.tvEmptyText);
+        this.tvCountDown = (TextView) rootView.findViewById(R.id.tvCountDown);
+
+        Calendar today = Calendar.getInstance();// Hoje
+
+        theGreatDay = Calendar.getInstance(); //Dia do evento
+
+        //Setando dia para 21/09 09:00:00
+        theGreatDay.set(Calendar.DAY_OF_MONTH,21);
+        theGreatDay.set(Calendar.MONTH,Calendar.SEPTEMBER);
+        theGreatDay.set(Calendar.HOUR_OF_DAY,9);
+        theGreatDay.set(Calendar.MINUTE,0);
+        theGreatDay.set(Calendar.SECOND,0);
+
+        long remaining = theGreatDay.getTime().getTime() - today.getTime().getTime();
+
+        new CountDownTimer(remaining,1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Calendar remaining = Calendar.getInstance(TimeZone.getTimeZone("GTM-03:00")); //Hoje
+                remaining.setTimeInMillis(millisUntilFinished);
+
+                tvCountDown.setText("Faltam "+
+                        String.valueOf(remaining.get(Calendar.DAY_OF_YEAR)-1+" dias ")+
+                        String.valueOf(remaining.get(Calendar.HOUR_OF_DAY)+" horas ")+
+                        String.valueOf(remaining.get(Calendar.MINUTE)+" minutos ")+
+                        String.valueOf(remaining.get(Calendar.SECOND)+" segundos"));
+            }
+
+            @Override
+            public void onFinish() {
+                tvCountDown.setText("");
+                tvCountDown.setVisibility(View.GONE);
+            }
+        }.start();
+
 
         this.getData = new GetData();
         getData.execute();

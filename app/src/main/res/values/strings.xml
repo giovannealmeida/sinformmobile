@@ -21,6 +21,6 @@
     <string name="title_activity_course_details">CourseDetailsActivity</string>
     <string name="title_activity_guest_details">GuestDetailsActivity</string>
     <string name="title_activity_lecture_details">LectureDetailsActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="empty_text_message">Sua rede parece estar com problemas.\nTente novamente mais tarde</string>
 
 </resources>

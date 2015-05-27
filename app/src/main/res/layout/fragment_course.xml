@@ -13,13 +13,8 @@
         android:dividerHeight="7dp"/>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tvEmptyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ainda não há nada cadastrado"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        style="@style/emptyTextView"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

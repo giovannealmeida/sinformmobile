@@ -1,9 +1,7 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:background="@android:color/black">
 
@@ -12,28 +10,129 @@
         style="@style/mainLayout">
 
         <!--<TextView-->
-            <!--android:id="@+id/edition"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--style="@style/titleText"-->
-            <!--android:text="XV"/>-->
+        <!--android:id="@+id/edition"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--style="@style/titleText"-->
+        <!--android:text="XV"/>-->
 
         <ImageView
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/title"/>
+            android:src="@drawable/title" />
 
-        <TextView
-            android:id="@+id/tvCountDown"
-            android:layout_width="match_parent"
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:text="data"
-            android:textSize="20dp"
-            android:gravity="center"/>
+            android:orientation="horizontal"
+            android:background="@android:color/darker_gray"
+            android:paddingRight="8dp">
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/daysLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dias"
+                    android:layout_alignParentRight="true"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvDays"
+                    android:layout_below="@id/daysLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="30sp"
+                    android:text="115" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/hoursLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Horas"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvHours"
+                    android:layout_below="@id/hoursLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="30sp"
+                    android:text="11" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/minutesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Minutos"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvMinutes"
+                    android:layout_below="@id/minutesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="30sp"
+                    android:text="58" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/secondsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Segundos"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvSeconds"
+                    android:layout_below="@id/secondsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="30sp"
+                    android:text="20" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvCountDown"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="data"
+        android:textSize="20dp"
+        android:gravity="center" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -60,11 +159,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:visibility="gone"
-                android:text="@string/lorem"/>
+                android:text="@string/lorem" />
 
             <TextView
                 android:id="@+id/tvEmptyText"
-                style="@style/emptyTextView"/>
+                style="@style/emptyTextView" />
         </LinearLayout>
     </ScrollView>
 
@@ -75,5 +174,5 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

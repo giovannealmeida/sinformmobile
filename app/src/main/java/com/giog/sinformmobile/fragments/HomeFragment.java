@@ -83,6 +83,11 @@ public class HomeFragment extends Fragment {
         this.tvEmptyText = (TextView) rootView.findViewById(R.id.tvEmptyText);
         this.tvCountDown = (TextView) rootView.findViewById(R.id.tvCountDown);
 
+        final TextView tvDays = (TextView) rootView.findViewById(R.id.tvDays);
+        final TextView tvHours = (TextView) rootView.findViewById(R.id.tvHours);
+        final TextView tvMinutes = (TextView) rootView.findViewById(R.id.tvMinutes);
+        final TextView tvSeconds = (TextView) rootView.findViewById(R.id.tvSeconds);
+
         Calendar today = Calendar.getInstance();// Hoje
 
         theGreatDay = Calendar.getInstance(); //Dia do evento
@@ -103,11 +108,10 @@ public class HomeFragment extends Fragment {
                 Calendar remaining = Calendar.getInstance(TimeZone.getTimeZone("GTM-03:00")); //Hoje
                 remaining.setTimeInMillis(millisUntilFinished);
 
-                tvCountDown.setText("Faltam "+
-                        String.valueOf(remaining.get(Calendar.DAY_OF_YEAR)-1+" dias ")+
-                        String.valueOf(remaining.get(Calendar.HOUR_OF_DAY)+" horas ")+
-                        String.valueOf(remaining.get(Calendar.MINUTE)+" minutos ")+
-                        String.valueOf(remaining.get(Calendar.SECOND)+" segundos"));
+                tvDays.setText(String.valueOf(remaining.get(Calendar.DAY_OF_YEAR)-1));
+                tvHours.setText(String.valueOf(remaining.get(Calendar.HOUR_OF_DAY)));
+                tvMinutes.setText(String.valueOf(remaining.get(Calendar.MINUTE)));
+                tvSeconds.setText(String.valueOf(remaining.get(Calendar.SECOND)));
             }
 
             @Override

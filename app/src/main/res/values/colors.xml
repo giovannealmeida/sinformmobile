@@ -6,6 +6,8 @@
     <color name="actionbar_text">#fff</color>
     <color name="acent_custom">#aa66cc</color>
 
+    <color name="light_gray">#f1f1f1</color>
+
     <color name="dark_primary_course">#0288D1</color>
     <color name="primary_course">#03A9F4</color>
     <color name="light_primary_course">#B3E5FC</color>

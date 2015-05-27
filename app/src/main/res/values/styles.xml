@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="android:textColor">@color/dark_primary_custom</item>
     </style>
 
     <style name="ToolbarBlueStyle" parent="Theme.AppCompat">
@@ -142,14 +143,13 @@
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/primary_custom</item>
         <item name="android:padding">5dp</item>
-        <item name="android:elevation">10dp</item>
+        <!--<item name="android:elevation">10dp</item>-->
     </style>
 
     <!--Estilo para os emptyTextView-->
     <style name="emptyTextView">
         <item name="android:visibility">gone</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/acent_custom</item>
         <item name="android:text">@string/empty_text_message</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

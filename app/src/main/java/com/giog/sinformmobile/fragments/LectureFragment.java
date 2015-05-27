@@ -68,6 +68,14 @@ public class LectureFragment extends Fragment implements AdapterView.OnItemClick
         return viewRoot;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(!getData.isCancelled()){
+            getData.cancel(true);
+        }
+    }
+
     public static boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

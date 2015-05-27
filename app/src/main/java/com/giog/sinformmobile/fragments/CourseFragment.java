@@ -87,6 +87,14 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
         startActivity(new Intent(getActivity(),CourseDetailsActivity.class).putExtra("course",course));
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(!getData.isCancelled()){
+            getData.cancel(true);
+        }
+    }
+
     private class GetData extends AsyncTask<Void, Void, List<Course>> {
 
         protected String message;

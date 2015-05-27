@@ -260,12 +260,12 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_login) {
-//            Toast.makeText(getActivity(), "*Exibe tela de login*", Toast.LENGTH_SHORT).show();
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-//            transaction.replace(R.id.container, new LoginFragment());
-            transaction.add(R.id.container, new LoginFragment()).addToBackStack(null);
-            transaction.commit();
+            Toast.makeText(getActivity(), "*Exibe tela de login*", Toast.LENGTH_SHORT).show();
+//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+////            transaction.replace(R.id.container, new LoginFragment());
+//            transaction.add(R.id.container, new LoginFragment()).addToBackStack(null);
+//            transaction.commit();
             return true;
         }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class GuestDetailsActivity extends ActionBarActivity {
 
     private Guest guest;
     private TextView tvInstructor;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,11 @@ public class GuestDetailsActivity extends ActionBarActivity {
         ((TextView) findViewById(R.id.tvName)).setText(guest.getName());
         ((TextView) findViewById(R.id.tvEmail)).setText(guest.getEmail());
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Convidado");
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Convidado");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

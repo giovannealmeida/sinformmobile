@@ -132,6 +132,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        if(!getData.isCancelled()){
+            getData.cancel(true);
+        }
     }
 
     public static boolean isOnline(Context context) {

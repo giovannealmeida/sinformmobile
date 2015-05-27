@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ public class CourseDetailsActivity extends ActionBarActivity implements View.OnC
 
     private Course course;
     private TextView tvInstructor;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,11 @@ public class CourseDetailsActivity extends ActionBarActivity implements View.OnC
         ((TextView) findViewById(R.id.tvTime)).setText(course.getFormattedTime());
         ((TextView) findViewById(R.id.tvLocal)).setText(course.getLocal());
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(course.getTitle());
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(course.getTitle());
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

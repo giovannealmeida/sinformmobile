@@ -90,6 +90,14 @@ public class GuestFragment extends Fragment implements AdapterView.OnItemClickLi
         startActivity(new Intent(getActivity(),GuestDetailsActivity.class).putExtra("guest",guest));
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if(!getData.isCancelled()){
+            getData.cancel(true);
+        }
+    }
+
     private class GetData extends AsyncTask<Void, Void, List<Guest>> {
 
         protected String message;

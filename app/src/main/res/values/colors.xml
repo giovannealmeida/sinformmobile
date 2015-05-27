@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary_custom">#699bd4</color>
+    <color name="dark_primary_custom">#1d409d</color>
+    <color name="light_primary_custom">#699bd4</color>
+    <color name="actionbar_text">#fff</color>
+
     <color name="dark_primary_course">#0288D1</color>
     <color name="primary_course">#03A9F4</color>
     <color name="light_primary_course">#B3E5FC</color>

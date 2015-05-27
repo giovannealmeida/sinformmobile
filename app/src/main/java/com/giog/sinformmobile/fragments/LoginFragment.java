@@ -113,7 +113,8 @@ public class LoginFragment extends Fragment {
 
                 MainActivity.SESSION_USER = user;
 
-                Menu menu = NavigationDrawerFragment.menu;
+//                Menu menu = NavigationDrawerFragment.menu;
+                Menu menu = MainActivity.menu;
                 if (menu != null)
                     menu.findItem(R.id.action_login).setTitle(user.getName());
             } else {

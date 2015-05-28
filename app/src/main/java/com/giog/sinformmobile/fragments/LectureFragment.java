@@ -57,7 +57,7 @@ public class LectureFragment extends Fragment implements AdapterView.OnItemClick
         listAdapter = new LectureListAdapter(null,getActivity());
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
-        this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvCourse);
+        this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvLecture);
 
         this.lvCourse.setAdapter(listAdapter);
         this.lvCourse.setOnItemClickListener(this);

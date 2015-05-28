@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.giog.sinformmobile.adapters.ExpandableListAdapter;
+import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.model.Event;
 
@@ -28,7 +28,7 @@ import java.util.List;
 public class ProgrammingFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 
     private ExpandableListView expandableListView;
-    private ExpandableListAdapter adapter;
+    private ProgrammingExpandableListAdapter adapter;
 
     private List<String> listDays;
     private HashMap<String,List<Event>> listCourses;
@@ -123,7 +123,7 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
         listCourses.put(listDays.get(1),tercaE);
         listCourses.put(listDays.get(2),quartaE);
 
-        adapter = new ExpandableListAdapter(listDays,listCourses,expandableListView,getActivity());
+        adapter = new ProgrammingExpandableListAdapter(listDays,listCourses,expandableListView,getActivity());
         expandableListView.setAdapter(adapter);
 
         return rootView;

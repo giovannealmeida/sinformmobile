@@ -11,16 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.activities.CourseDetailsActivity;
+import com.giog.sinformmobile.adapters.CourseExpandableListAdapter;
 import com.giog.sinformmobile.adapters.CourseListAdapter;
+import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
 import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.webservice.SinformREST;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,12 +33,14 @@ import java.util.List;
  * Use the {@link CourseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class CourseFragment extends Fragment implements ExpandableListView.OnChildClickListener {
 
-    private ListView lvCourse;
-    private CourseListAdapter listAdapter;
+    private ExpandableListView expandableListView;
+    private CourseExpandableListAdapter adapter;
     private ProgressBar progressBar;
     private TextView tvEmptyText;
+    private List<String> groups;
+
     private SinformREST sinformREST = new SinformREST();
     private GetData getData;
 
@@ -55,13 +62,10 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_course, container, false);
 
-        listAdapter = new CourseListAdapter(null,getActivity());
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
-        this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvCourse);
-
-        this.lvCourse.setAdapter(listAdapter);
-        this.lvCourse.setOnItemClickListener(this);
+        this.expandableListView = (ExpandableListView) viewRoot.findViewById(R.id.elvCourses);
+        this.expandableListView.setOnChildClickListener(this);
 
         this.getData = new GetData();
         getData.execute();
@@ -81,13 +85,6 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Course course = listAdapter.getItem(position);
-
-        startActivity(new Intent(getActivity(),CourseDetailsActivity.class).putExtra("course",course));
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         if(!getData.isCancelled()){
@@ -95,12 +92,17 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
         }
     }
 
-    private class GetData extends AsyncTask<Void, Void, List<Course>> {
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        return false;
+    }
+
+    private class GetData extends AsyncTask<Void, Void, HashMap <String,List<Course>>> {
 
         protected String message;
 
         @Override
-        protected List<Course> doInBackground(Void... params) {
+        protected HashMap <String,List<Course>> doInBackground(Void... params) {
 
             message = "";
             if (!isOnline(getActivity().getApplicationContext())) {
@@ -109,7 +111,8 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
             }
 
             try {
-                return sinformREST.getCourse();
+//                return sinformREST.getCourse();
+                return sinformREST.getCourseGroups();
             } catch (Exception e) {
                 message = e.getMessage();
             }
@@ -124,16 +127,18 @@ public class CourseFragment extends Fragment implements AdapterView.OnItemClickL
         }
 
         @Override
-        protected void onPostExecute(List<Course> list) {
-            super.onPostExecute(list);
+        protected void onPostExecute(HashMap <String,List<Course>> coursesByGroup) {
+            super.onPostExecute(coursesByGroup);
 
-            if (list != null && !isCancelled()) {
-                listAdapter.setList(list);
-                listAdapter.notifyDataSetChanged();
+            if (coursesByGroup != null && !isCancelled()) {
+                groups = new ArrayList<String>(coursesByGroup.keySet());
+                adapter = new CourseExpandableListAdapter(groups,coursesByGroup,expandableListView,getActivity());
+                expandableListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             progressBar.setVisibility(View.GONE);
-            if (listAdapter.isEmpty()) {
+            if (adapter.isEmpty()) {
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
         }

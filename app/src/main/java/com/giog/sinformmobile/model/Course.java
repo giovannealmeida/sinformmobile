@@ -20,6 +20,7 @@ public class Course implements Serializable {
 
     private int id;
     private String title;
+    private int group;
     private Guest guest;
     private Calendar date;
     private String local;
@@ -29,6 +30,7 @@ public class Course implements Serializable {
         if(jsonObject != null) {
             this.id = jsonObject.optInt("id");
             this.title = jsonObject.optString("title");
+            this.group = jsonObject.optInt("group");
             this.guest = new Guest(jsonObject.getJSONObject("guest"));
             this.date = getFormattedDate(jsonObject.optString("date")); //2015-09-22 08:00:00
             this.local = jsonObject.optString("local");
@@ -57,6 +59,10 @@ public class Course implements Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getGroup() {
+        return group;
     }
 
     public Guest getGuest() {

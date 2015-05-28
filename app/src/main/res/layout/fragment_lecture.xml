@@ -6,7 +6,7 @@
     android:background="@color/dark_primary_lecture">
 
     <ListView
-        android:id="@+id/lvCourse"
+        android:id="@+id/lvLecture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"

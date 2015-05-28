@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class SinformREST {
     public static final String GET_USER = DOMINIO + "/REST/user/login.php";
     public static final String GET_ABOUT = DOMINIO + "/REST/about/getAbout.php";
     public static final String GET_COURSE = DOMINIO + "/REST/course/getCourse.php";
+    public static final String GET_COURSE_GROUPS = DOMINIO + "/REST/course/getGroups.php";
     public static final String GET_GUEST = DOMINIO + "/REST/guest/getGuest.php";
     public static final String GET_LECTURE = DOMINIO + "/REST/lecture/getLecture.php";
 
@@ -117,6 +119,45 @@ public class SinformREST {
             }
 
             return list;
+        } catch (JSONException e) {
+            throw new Exception("Falha na conexão");
+        } catch (SocketException e) {
+            throw new Exception("Falha na conexão");
+        } catch (IOException e) {
+            throw new Exception("Falha ao receber arquivo");
+        }
+    }
+
+    public HashMap<String,List<Course>> getCourseGroups() throws Exception {
+
+        try {
+
+            List<Course> courses = getCourse();
+            List<Integer> groups = new ArrayList<>();
+
+            JSONObject json = getJsonResult(GET_COURSE_GROUPS, null);
+            if (!json.optString("status_message").equals("null")) {
+                throw new Exception(json.optString("status_message"));
+            }
+
+            JSONArray jsonArray = json.getJSONArray("data");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                groups.add(new Integer(jsonArray.getJSONObject(i).getInt("group")));
+            }
+
+            HashMap<String,List<Course>> courseByGroup = new HashMap<>();
+            for(Integer group : groups){
+                List<Course> aux = new ArrayList<>();
+                for(Course course : courses){
+                    if(course.getGroup() == group){
+                        aux.add(course);
+                    }
+                }
+                courseByGroup.put("Grupo "+String.valueOf(group),aux);
+            }
+
+            return courseByGroup;
         } catch (JSONException e) {
             throw new Exception("Falha na conexão");
         } catch (SocketException e) {

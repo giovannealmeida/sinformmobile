@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Giovanne on 12/02/2015.
  */
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class ProgrammingExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private List<String> listDays;
 	private HashMap<String,List<Event>> listCourses;
@@ -34,7 +34,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private SinformREST sinformRest;
 
-	public ExpandableListAdapter(List<String> listDays, HashMap<String, List<Event>> listCourses, ExpandableListView expandableListView, Context context) {
+	public ProgrammingExpandableListAdapter(List<String> listDays, HashMap<String, List<Event>> listCourses, ExpandableListView expandableListView, Context context) {
 		this.listDays = listDays;
 		this.context = context;
 		this.expandableListView = expandableListView;

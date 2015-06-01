@@ -8,11 +8,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,10 +18,7 @@ import android.widget.Toast;
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.webservice.SinformREST;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 /**
@@ -40,7 +35,6 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView tvEmptyText;
     private TextView tvDescription;
-    private TextView tvCountDown;
     private Calendar theGreatDay;
 
     private GetData getData;
@@ -79,20 +73,24 @@ public class HomeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         this.tvDescription = (TextView) rootView.findViewById(R.id.tvDescription);
+
         this.progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) rootView.findViewById(R.id.tvEmptyText);
-        this.tvCountDown = (TextView) rootView.findViewById(R.id.tvCountDown);
 
         final TextView tvDays = (TextView) rootView.findViewById(R.id.tvDays);
         final TextView tvHours = (TextView) rootView.findViewById(R.id.tvHours);
         final TextView tvMinutes = (TextView) rootView.findViewById(R.id.tvMinutes);
         final TextView tvSeconds = (TextView) rootView.findViewById(R.id.tvSeconds);
+        final TextView labelDays = (TextView) rootView.findViewById(R.id.daysLabel);
+        final TextView labelHours = (TextView) rootView.findViewById(R.id.hoursLabel);
+        final TextView labelMinutes = (TextView) rootView.findViewById(R.id.minutesLabel);
+        final TextView labelSeconds = (TextView) rootView.findViewById(R.id.secondsLabel);
 
         Calendar today = Calendar.getInstance();// Hoje
 
         theGreatDay = Calendar.getInstance(); //Dia do evento
 
-        //Setando dia para 21/09 09:00:00
+        //Setando dia para 21/09 09:00:00 -- Dia do evento
         theGreatDay.set(Calendar.DAY_OF_MONTH,21);
         theGreatDay.set(Calendar.MONTH,Calendar.SEPTEMBER);
         theGreatDay.set(Calendar.HOUR_OF_DAY,9);
@@ -101,14 +99,15 @@ public class HomeFragment extends Fragment {
 
         long remaining = theGreatDay.getTime().getTime() - today.getTime().getTime();
 
-        new CountDownTimer(remaining,1000){
+
+        new CountDownTimer(remaining, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 Calendar remaining = Calendar.getInstance(TimeZone.getTimeZone("GTM-03:00")); //Hoje
                 remaining.setTimeInMillis(millisUntilFinished);
 
-                tvDays.setText(String.valueOf(remaining.get(Calendar.DAY_OF_YEAR)-1));
+                tvDays.setText(String.valueOf(remaining.get(Calendar.DAY_OF_YEAR) - 1));
                 tvHours.setText(String.valueOf(remaining.get(Calendar.HOUR_OF_DAY)));
                 tvMinutes.setText(String.valueOf(remaining.get(Calendar.MINUTE)));
                 tvSeconds.setText(String.valueOf(remaining.get(Calendar.SECOND)));
@@ -116,11 +115,17 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                tvCountDown.setText("");
-                tvCountDown.setVisibility(View.GONE);
+//                Toast.makeText(getActivity(), "FINALIZADO", Toast.LENGTH_LONG).show();
+                tvDays.setVisibility(View.GONE);
+                tvHours.setVisibility(View.GONE);
+                tvMinutes.setVisibility(View.GONE);
+                tvSeconds.setVisibility(View.GONE);
+                labelDays.setVisibility(View.GONE);
+                labelHours.setVisibility(View.GONE);
+                labelMinutes.setVisibility(View.GONE);
+                labelSeconds.setVisibility(View.GONE);
             }
         }.start();
-
 
         this.getData = new GetData();
         getData.execute();
@@ -136,7 +141,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        if(!getData.isCancelled()){
+        if (!getData.isCancelled()) {
             getData.cancel(true);
         }
     }
@@ -181,17 +186,17 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String user) {
-            super.onPostExecute(user);
+        protected void onPostExecute(String about) {
+            super.onPostExecute(about);
 
             String users = "";
 
-            if (user != null && !isCancelled()) {
-                tvDescription.setText(user);
+            if (about != null && !isCancelled()) {
+                tvDescription.setText(about);
                 tvDescription.setVisibility(View.VISIBLE);
 
             } else {
-                Toast.makeText(getActivity(),message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
 

@@ -15,13 +15,16 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.activities.CourseDetailsActivity;
+import com.giog.sinformmobile.activities.GuestDetailsActivity;
 import com.giog.sinformmobile.adapters.CourseExpandableListAdapter;
 import com.giog.sinformmobile.adapters.CourseListAdapter;
 import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
 import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.model.Guest;
 import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import java.util.List;
  * Use the {@link CourseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CourseFragment extends Fragment implements ExpandableListView.OnChildClickListener {
+public class CourseFragment extends Fragment implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
 
     private ExpandableListView expandableListView;
     private CourseExpandableListAdapter adapter;
@@ -66,6 +69,7 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
         this.expandableListView = (ExpandableListView) viewRoot.findViewById(R.id.elvCourses);
         this.expandableListView.setOnChildClickListener(this);
+        this.expandableListView.setOnGroupClickListener(this);
 
         this.getData = new GetData();
         getData.execute();
@@ -94,7 +98,13 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        return false;
+        startActivity(new Intent(getActivity(),CourseDetailsActivity.class).putExtra("course",((Course) adapter.getChild(groupPosition,childPosition))));
+        return true;
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        return true;
     }
 
     private class GetData extends AsyncTask<Void, Void, HashMap <String,List<Course>>> {
@@ -135,10 +145,12 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
                 adapter = new CourseExpandableListAdapter(groups,coursesByGroup,expandableListView,getActivity());
                 expandableListView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                for(int i=0; i < adapter.getGroupCount(); i++)
+                    expandableListView.expandGroup(i);
             }
 
             progressBar.setVisibility(View.GONE);
-            if (adapter.isEmpty()) {
+            if (adapter.isEmpty() && adapter != null) {
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
         }

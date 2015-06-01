@@ -96,7 +96,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.item_expandable_course_parent, null);
+			convertView = infalInflater.inflate(R.layout.item_expandable_course_group, null);
 		}
 
 		TextView txtName = (TextView) convertView
@@ -111,15 +111,15 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 		return false;
 	}
 
-	@Override
-	public void onGroupExpanded(int groupPosition){
-		//collapse the old expanded group, if not the same
-		//as new group to expand
-		if(groupPosition != lastExpandedGroupPosition){
-			expandableListView.collapseGroup(lastExpandedGroupPosition);
-		}
-
-		super.onGroupExpanded(groupPosition);
-		lastExpandedGroupPosition = groupPosition;
-	}
+//	@Override
+//	public void onGroupExpanded(int groupPosition){
+//		//collapse the old expanded group, if not the same
+//		//as new group to expand
+//		if(groupPosition != lastExpandedGroupPosition){
+//			expandableListView.collapseGroup(lastExpandedGroupPosition);
+//		}
+//
+//		super.onGroupExpanded(groupPosition);
+//		lastExpandedGroupPosition = groupPosition;
+//	}
 }

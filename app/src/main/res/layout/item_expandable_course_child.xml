@@ -8,6 +8,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="5dp"
+    android:paddingBottom="8dp"
     android:background="@android:color/white">
 
         <TextView
@@ -21,12 +22,10 @@
             android:id="@+id/tvAbout"
             android:layout_below="@id/tvTitle"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:ellipsize="end"
             android:textColor="@color/primary_custom"
-            android:requiresFadingEdge="vertical"
-            android:fadingEdge="vertical"
-            android:fadingEdgeLength="5dp"
-            android:scrollbars="vertical"
             android:text="@string/lorem"/>
 
 </RelativeLayout>

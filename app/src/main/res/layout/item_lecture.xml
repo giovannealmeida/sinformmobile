@@ -27,7 +27,7 @@
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/itemTextNivel2"
+            style="@style/itemTitleCourse"
             android:text="00:00 - "/>
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_toRightOf="@id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/itemTextNivel2"
+            style="@style/itemTitleCourse"
             android:text="01/01"/>
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/itemTextNivel2"
+            style="@style/itemTitleCourse"
             android:text="(Day)"/>
 
         <TextView

@@ -10,21 +10,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.activities.CourseDetailsActivity;
-import com.giog.sinformmobile.activities.GuestDetailsActivity;
 import com.giog.sinformmobile.adapters.CourseExpandableListAdapter;
-import com.giog.sinformmobile.adapters.CourseListAdapter;
-import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
 import com.giog.sinformmobile.model.Course;
-import com.giog.sinformmobile.model.Guest;
 import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.util.ArrayList;
@@ -122,7 +115,7 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
 
             try {
 //                return sinformREST.getCourse();
-                return sinformREST.getCourseGroups();
+                return sinformREST.getCourseByGroup();
             } catch (Exception e) {
                 message = e.getMessage();
             }

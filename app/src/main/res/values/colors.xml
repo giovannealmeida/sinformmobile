@@ -9,10 +9,10 @@
     <color name="light_gray">#f1f1f1</color>
     <color name="dark_gray">#4b4b4b</color>
 
-    <color name="dark_primary_course">#0288D1</color>
-    <color name="primary_course">#03A9F4</color>
-    <color name="light_primary_course">#B3E5FC</color>
-    <color name="acent_primary_course">#448AFF</color>
+    <color name="dark_primary_course">#1d409d</color>
+    <color name="primary_course">#699bd4</color>
+    <!--<color name="light_primary_course">#B3E5FC</color>-->
+    <!--<color name="acent_primary_course">#448AFF</color>-->
 
     <color name="dark_primary_guest">#11772d</color>
     <color name="primary_guest">#00bb27</color>

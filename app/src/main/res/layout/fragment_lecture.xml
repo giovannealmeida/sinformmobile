@@ -2,15 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.giog.sinformmobile.fragments.LectureFragment"
-    android:background="@color/primary_lecture">
+    tools:context="com.giog.sinformmobile.fragments.CourseFragment"
+    android:background="@android:color/white">
 
-    <ListView
-        android:id="@+id/lvLecture"
+    <ExpandableListView
+        android:id="@+id/elvLectures"
+        android:groupIndicator="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="7dp"/>
+        android:layout_height="wrap_content"
+        android:childDivider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:divider="@android:color/darker_gray"/>
 
     <TextView
         android:id="@+id/tvEmptyText"

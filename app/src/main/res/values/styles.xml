@@ -27,6 +27,17 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <!--Estilo de títulos em itens de curso-->
+    <style name="itemTitleCourse">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_primary_course</item>
+    </style>
+
+    <!--Estilo de títulos em itens de palestra-->
+    <style name="itemTitleLecture">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_primary_lecture</item>
+    </style>
     <!-- ###################################################################################### -->
 
     <style name="titleTextCourse" parent="titleBoxCourse">
@@ -86,12 +97,12 @@
 
     <!--Estilo de link para conteúdos de courses-->
     <style name="linkTextNivel2Course" parent="contentTextNivel2">
-        <item name="android:textColor">@color/acent_primary_course</item>
+        <item name="android:textColor">@color/dark_primary_course</item>
     </style>
 
     <!--Estilo de link para conteúdos de lectures-->
     <style name="linkTextNivel2Lecture" parent="contentTextNivel2">
-        <item name="android:textColor">@color/acent_primary_lecture</item>
+        <item name="android:textColor">@color/dark_primary_lecture</item>
     </style>
 
     <!--Estilo de texto para conteúdos de nível 2 de listas-->
@@ -124,11 +135,6 @@
         <item name="android:color">@android:color/black</item>
     </style>
 
-    <!--Estilo de texto para itens de nível 2 de listas-->
-    <style name="itemTextNivel2">
-        <item name="android:textSize">20sp</item>
-        <item name="android:color">@android:color/black</item>
-    </style>
 
     <!--Estilo de texto para itens de nível 3 de listas-->
     <style name="itemTextNivel3">

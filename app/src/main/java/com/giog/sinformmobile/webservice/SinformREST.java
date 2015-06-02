@@ -45,7 +45,7 @@ public class SinformREST {
     public static final String GET_USER = DOMINIO + "/REST/user/login.php";
     public static final String GET_ABOUT = DOMINIO + "/REST/about/getAbout.php";
     public static final String GET_COURSE = DOMINIO + "/REST/course/getCourse.php";
-    public static final String GET_COURSE_GROUPS = DOMINIO + "/REST/course/getGroups.php";
+//    public static final String GET_COURSE_GROUPS = DOMINIO + "/REST/course/getGroups.php";
     public static final String GET_GUEST = DOMINIO + "/REST/guest/getGuest.php";
     public static final String GET_LECTURE = DOMINIO + "/REST/lecture/getLecture.php";
 
@@ -128,24 +128,25 @@ public class SinformREST {
         }
     }
 
-    public HashMap<String,List<Course>> getCourseGroups() throws Exception {
+    public HashMap<String,List<Course>> getCourseByGroup() throws Exception {
 
         try {
 
             List<Course> courses = getCourse();
-            List<Integer> groups = new ArrayList<>();
+            List<Integer> groups = getGroupsFromCourses(courses);
+//            List<Integer> groups = new ArrayList<>();
 
-            JSONObject json = getJsonResult(GET_COURSE_GROUPS, null);
-            if (!json.optString("status_message").equals("null")) {
-                throw new Exception(json.optString("status_message"));
-            }
-
-            JSONArray jsonArray = json.getJSONArray("data");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                groups.add(new Integer(jsonArray.getJSONObject(i).getInt("group")));
-            }
-
+//            JSONObject json = getJsonResult(GET_COURSE_GROUPS, null);
+//            if (!json.optString("status_message").equals("null")) {
+//                throw new Exception(json.optString("status_message"));
+//            }
+//
+//            JSONArray jsonArray = json.getJSONArray("data");
+//
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                groups.add(new Integer(jsonArray.getJSONObject(i).getInt("group")));
+//            }
+//
             HashMap<String,List<Course>> courseByGroup = new HashMap<>();
             for(Integer group : groups){
                 List<Course> aux = new ArrayList<>();
@@ -165,6 +166,60 @@ public class SinformREST {
         } catch (IOException e) {
             throw new Exception("Falha ao receber arquivo");
         }
+    }
+
+    private List<Integer> getGroupsFromCourses(List<Course> list){
+        List<Integer> found = new ArrayList<>();
+        int lastFound = -1;
+
+        for(Course c : list){
+            if(c.getGroup() != lastFound){
+                lastFound = c.getGroup();
+                found.add(lastFound);
+            }
+        }
+
+        return found;
+    }
+
+    public HashMap<String,List<Lecture>> getLectureByDate() throws Exception {
+
+        try {
+
+            List<Lecture> lectures = getLecture();
+            List<String> dates = getDatesFromLectures(lectures);
+
+            HashMap<String,List<Lecture>> lectureByDate = new HashMap<>();
+            for(String date : dates){
+                List<Lecture> aux = new ArrayList<>();
+                for(Lecture lecture : lectures){
+                    if(lecture.getDayOfWeek() == date){
+                        aux.add(lecture);
+                    }
+                }
+                lectureByDate.put(date, aux);
+            }
+
+            return lectureByDate;
+        } catch (JSONException e) {
+            throw new Exception("Falha na conexão");
+        } catch (SocketException e) {
+            throw new Exception("Falha na conexão");
+        }
+    }
+
+    private List<String> getDatesFromLectures(List<Lecture> list){
+        List<String> found = new ArrayList<>();
+        String lastFound = "";
+
+        for(Lecture l : list){
+            if(!l.getDayOfWeek().equals(lastFound)){
+                lastFound = l.getDayOfWeek();
+                found.add(lastFound);
+            }
+        }
+
+        return found;
     }
 
     public List<Lecture> getLecture() throws Exception {

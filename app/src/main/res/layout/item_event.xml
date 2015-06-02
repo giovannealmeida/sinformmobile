@@ -11,14 +11,14 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/itemTextNivel2"
+        style="@style/itemTitleCourse"
         android:text="00:00 - "/>
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/itemTextNivel2"
+        style="@style/itemTitleCourse"
         android:text="Name"/>
 
     <RelativeLayout

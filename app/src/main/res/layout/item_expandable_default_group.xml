@@ -15,10 +15,11 @@
         android:layout_centerVertical="true" />
 
     <ImageView
+        android:id="@+id/ivIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/img_course"
+        android:src="@drawable/ic_launcher"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true" />
 

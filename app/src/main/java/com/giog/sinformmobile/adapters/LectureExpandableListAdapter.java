@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
-import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.model.Lecture;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,30 +18,30 @@ import java.util.List;
 /**
  * Created by Giovanne on 12/02/2015.
  */
-public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
+public class LectureExpandableListAdapter extends BaseExpandableListAdapter {
 
-	private List<String> listGroups;
-	private HashMap<String,List<Course>> listCourses;
+	private List<String> listDates;
+	private HashMap<String,List<Lecture>> listLecturesByDate;
 	private Context context;
 
 	private int lastExpandedGroupPosition = -1;
 	private ExpandableListView expandableListView;
 
-	public CourseExpandableListAdapter(List<String> listGroups, HashMap<String, List<Course>> listCourses, ExpandableListView expandableListView, Context context) {
-		this.listGroups = listGroups;
+	public LectureExpandableListAdapter(List<String> listDates, HashMap<String, List<Lecture>> listLecturesByDate, ExpandableListView expandableListView, Context context) {
+		this.listDates = listDates;
 		this.context = context;
 		this.expandableListView = expandableListView;
-		this.listCourses = listCourses;
+		this.listLecturesByDate = listLecturesByDate;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return listCourses.get(listGroups.get(groupPosition)).size();
+		return listLecturesByDate.get(listDates.get(groupPosition)).size();
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return listCourses.get(listGroups.get(groupPosition)).get(childPosition);
+		return listLecturesByDate.get(listDates.get(groupPosition)).get(childPosition);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-		final Course course = (Course) getChild(groupPosition, childPosition);
+		final Lecture lecture = (Lecture) getChild(groupPosition, childPosition);
 
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -65,8 +65,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 		TextView tvAbout = (TextView) convertView
 				.findViewById(R.id.tvAbout);
 
-        tvTitle.setText(course.getTitle());
-        tvAbout.setText(course.getAbout());
+        tvTitle.setText(lecture.getTitle());
+        tvAbout.setText(lecture.getAbout());
 
 		return convertView;
 	}
@@ -78,12 +78,12 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getGroupCount() {
-		return listGroups.size();
+		return listDates.size();
 	}
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		return listGroups.get(groupPosition);
+		return listDates.get(groupPosition);
 	}
 
 	@Override
@@ -100,9 +100,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = infalInflater.inflate(R.layout.item_expandable_default_group, null);
 		}
 
-        ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
-        ivIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.img_course));
-
+		ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
+        ivIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.img_lecture));
 		TextView txtName = (TextView) convertView.findViewById(R.id.tvGroup);
 
 		txtName.setText((String) getGroup(groupPosition));
@@ -114,15 +113,4 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
 		return false;
 	}
 
-//	@Override
-//	public void onGroupExpanded(int groupPosition){
-//		//collapse the old expanded group, if not the same
-//		//as new group to expand
-//		if(groupPosition != lastExpandedGroupPosition){
-//			expandableListView.collapseGroup(lastExpandedGroupPosition);
-//		}
-//
-//		super.onGroupExpanded(groupPosition);
-//		lastExpandedGroupPosition = groupPosition;
-//	}
 }

@@ -93,9 +93,9 @@ public class Course implements Serializable {
                 return "Segunda";
             case Calendar.TUESDAY:
                 return "Terça";
-            case Calendar.THURSDAY:
-                return "Quarta";
             case Calendar.WEDNESDAY:
+                return "Quarta";
+            case Calendar.THURSDAY:
                 return "Quinta";
             case Calendar.FRIDAY:
                 return "Sexta";

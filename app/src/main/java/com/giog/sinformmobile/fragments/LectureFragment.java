@@ -1,6 +1,5 @@
 package com.giog.sinformmobile.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -11,28 +10,33 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
-import com.giog.sinformmobile.activities.CourseDetailsActivity;
 import com.giog.sinformmobile.activities.LectureDetailsActivity;
-import com.giog.sinformmobile.adapters.CourseListAdapter;
-import com.giog.sinformmobile.adapters.LectureListAdapter;
-import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.adapters.LectureExpandableListAdapter;
 import com.giog.sinformmobile.model.Lecture;
 import com.giog.sinformmobile.webservice.SinformREST;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class LectureFragment extends Fragment implements AdapterView.OnItemClickListener {
+/**
+ * A simple {@link android.support.v4.app.Fragment} subclass.
+ * Use the {@link LectureFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class LectureFragment extends Fragment implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
 
-    private ListView lvCourse;
-    private LectureListAdapter listAdapter;
+    private ExpandableListView expandableListView;
+    private LectureExpandableListAdapter adapter;
     private ProgressBar progressBar;
     private TextView tvEmptyText;
+    private List<String> days;
+
     private SinformREST sinformREST = new SinformREST();
     private GetData getData;
 
@@ -51,29 +55,19 @@ public class LectureFragment extends Fragment implements AdapterView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_lecture, container, false);
 
-        listAdapter = new LectureListAdapter(null,getActivity());
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
-        this.lvCourse = (ListView) viewRoot.findViewById(R.id.lvLecture);
-
-        this.lvCourse.setAdapter(listAdapter);
-        this.lvCourse.setOnItemClickListener(this);
+        this.expandableListView = (ExpandableListView) viewRoot.findViewById(R.id.elvLectures);
+        this.expandableListView.setOnChildClickListener(this);
+        this.expandableListView.setOnGroupClickListener(this);
 
         this.getData = new GetData();
         getData.execute();
 
         return viewRoot;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if(!getData.isCancelled()){
-            getData.cancel(true);
-        }
     }
 
     public static boolean isOnline(Context context) {
@@ -88,18 +82,30 @@ public class LectureFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Lecture lecture = listAdapter.getItem(position);
-
-        startActivity(new Intent(getActivity(),LectureDetailsActivity.class).putExtra("lecture",lecture));
+    public void onDetach() {
+        super.onDetach();
+        if(!getData.isCancelled()){
+            getData.cancel(true);
+        }
     }
 
-    private class GetData extends AsyncTask<Void, Void, List<Lecture>> {
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        startActivity(new Intent(getActivity(),LectureDetailsActivity.class).putExtra("lecture",((Lecture) adapter.getChild(groupPosition,childPosition))));
+        return true;
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        return true;
+    }
+
+    private class GetData extends AsyncTask<Void, Void, HashMap <String,List<Lecture>>> {
 
         protected String message;
 
         @Override
-        protected List<Lecture> doInBackground(Void... params) {
+        protected HashMap <String,List<Lecture>> doInBackground(Void... params) {
 
             message = "";
             if (!isOnline(getActivity().getApplicationContext())) {
@@ -108,7 +114,8 @@ public class LectureFragment extends Fragment implements AdapterView.OnItemClick
             }
 
             try {
-                return sinformREST.getLecture();
+//                return sinformREST.getCourse();
+                return sinformREST.getLectureByDate();
             } catch (Exception e) {
                 message = e.getMessage();
             }
@@ -123,16 +130,20 @@ public class LectureFragment extends Fragment implements AdapterView.OnItemClick
         }
 
         @Override
-        protected void onPostExecute(List<Lecture> list) {
-            super.onPostExecute(list);
+        protected void onPostExecute(HashMap <String,List<Lecture>> lectureByDate) {
+            super.onPostExecute(lectureByDate);
 
-            if (list != null && !isCancelled()) {
-                listAdapter.setList(list);
-                listAdapter.notifyDataSetChanged();
+            if (lectureByDate != null && !isCancelled()) {
+                days = new ArrayList<String>(lectureByDate.keySet());
+                adapter = new LectureExpandableListAdapter(days,lectureByDate,expandableListView,getActivity());
+                expandableListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                for(int i=0; i < adapter.getGroupCount(); i++)
+                    expandableListView.expandGroup(i);
             }
 
             progressBar.setVisibility(View.GONE);
-            if (listAdapter.isEmpty()) {
+            if (adapter.isEmpty() && adapter != null) {
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
         }

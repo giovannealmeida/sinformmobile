@@ -38,13 +38,14 @@ public class LectureDetailsActivity extends ActionBarActivity implements View.On
         tvInstructor = (TextView) findViewById(R.id.tvInstructor);
         tvInstructor.setText(content);
         tvInstructor.setOnClickListener(this);
+        ((TextView) findViewById(R.id.tvTitle)).setText(lecture.getTitle());
         ((TextView) findViewById(R.id.tvAbout)).setText(lecture.getAbout());
-        ((TextView) findViewById(R.id.tvDate)).setText(lecture.getFormattedDate()+" - "+ lecture.getDayOfWeek());
-        ((TextView) findViewById(R.id.tvTime)).setText(lecture.getFormattedTime());
+        ((TextView) findViewById(R.id.tvDate)).setText(lecture.getFormattedDate()+" ("+ lecture.getDayOfWeek()+")");
+        ((TextView) findViewById(R.id.tvTime)).setText(lecture.getFormattedTime()+"hs");
         ((TextView) findViewById(R.id.tvLocal)).setText(lecture.getLocal());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(lecture.getTitle());
+        toolbar.setTitle("Palestra");
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

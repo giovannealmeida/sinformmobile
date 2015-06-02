@@ -39,13 +39,14 @@ public class CourseDetailsActivity extends ActionBarActivity implements View.OnC
         tvInstructor = (TextView) findViewById(R.id.tvInstructor);
         tvInstructor.setText(content);
         tvInstructor.setOnClickListener(this);
+        ((TextView) findViewById(R.id.tvTitle)).setText(course.getTitle());
         ((TextView) findViewById(R.id.tvAbout)).setText(course.getAbout());
-        ((TextView) findViewById(R.id.tvDate)).setText(course.getFormattedDate()+" - "+course.getDayOfWeek());
-        ((TextView) findViewById(R.id.tvTime)).setText(course.getFormattedTime());
+        ((TextView) findViewById(R.id.tvDate)).setText(course.getFormattedDate()+" ("+course.getDayOfWeek()+")");
+        ((TextView) findViewById(R.id.tvTime)).setText(course.getFormattedTime()+"hs");
         ((TextView) findViewById(R.id.tvLocal)).setText(course.getLocal());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(course.getTitle());
+        toolbar.setTitle("Curso");
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

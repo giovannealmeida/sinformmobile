@@ -13,6 +13,22 @@
         <item name="android:background">@color/primary_custom</item>
     </style>
 
+    <style name="titleBoxGray">
+        <item name="android:padding">8dp</item>
+        <item name="android:background">@color/light_gray</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="contentBoxWhite">
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- ###################################################################################### -->
+
     <style name="titleTextCourse" parent="titleBoxCourse">
         <item name="android:textSize">40sp</item>
         <item name="android:textColor">@android:color/white</item>
@@ -43,6 +59,7 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+
     <style name="titleBoxGuest">
         <!--style="@style/itemTextNivel2"-->
         <item name="android:padding">3dp</item>
@@ -62,17 +79,9 @@
         <item name="android:elevation">3dp</item>
     </style>
 
-    <style name="contentBoxWhite">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:elevation">1dp</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_marginLeft">5dp</item>
-        <item name="android:layout_marginRight">5dp</item>
-    </style>
-
     <!--Estilo de link para conteúdos de guests-->
     <style name="linkTextNivel2Guest" parent="contentTextNivel2">
-        <item name="android:textColor">@color/acent_primary_guest</item>
+        <item name="android:textColor">@color/dark_primary_guest</item>
     </style>
 
     <!--Estilo de link para conteúdos de courses-->

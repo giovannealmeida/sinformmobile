@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.activities.LectureDetailsActivity;
@@ -57,6 +58,7 @@ public class LectureFragment extends Fragment implements ExpandableListView.OnCh
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_lecture, container, false);
+        adapter = new LectureExpandableListAdapter(getActivity(),expandableListView);
 
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
@@ -114,7 +116,6 @@ public class LectureFragment extends Fragment implements ExpandableListView.OnCh
             }
 
             try {
-//                return sinformREST.getCourse();
                 return sinformREST.getLectureByDate();
             } catch (Exception e) {
                 message = e.getMessage();
@@ -135,15 +136,18 @@ public class LectureFragment extends Fragment implements ExpandableListView.OnCh
 
             if (lectureByDate != null && !isCancelled()) {
                 days = new ArrayList<String>(lectureByDate.keySet());
-                adapter = new LectureExpandableListAdapter(days,lectureByDate,expandableListView,getActivity());
+                adapter.setListDates(days);
+                adapter.setListLecturesByDate(lectureByDate);
                 expandableListView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 for(int i=0; i < adapter.getGroupCount(); i++)
                     expandableListView.expandGroup(i);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             }
 
             progressBar.setVisibility(View.GONE);
-            if (adapter.isEmpty() && adapter != null) {
+            if (adapter != null && adapter.isEmpty()) {
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
         }

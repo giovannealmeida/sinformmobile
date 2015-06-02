@@ -24,19 +24,16 @@ public class LectureExpandableListAdapter extends BaseExpandableListAdapter {
 	private HashMap<String,List<Lecture>> listLecturesByDate;
 	private Context context;
 
-	private int lastExpandedGroupPosition = -1;
 	private ExpandableListView expandableListView;
 
-	public LectureExpandableListAdapter(List<String> listDates, HashMap<String, List<Lecture>> listLecturesByDate, ExpandableListView expandableListView, Context context) {
-		this.listDates = listDates;
-		this.context = context;
-		this.expandableListView = expandableListView;
-		this.listLecturesByDate = listLecturesByDate;
-	}
+    public LectureExpandableListAdapter(Context context, ExpandableListView expandableListView) {
+        this.context = context;
+        this.expandableListView = expandableListView;
+    }
 
-	@Override
+    @Override
 	public int getChildrenCount(int groupPosition) {
-		return listLecturesByDate.get(listDates.get(groupPosition)).size();
+		return listLecturesByDate!=null?listLecturesByDate.get(listDates.get(groupPosition)).size():0;
 	}
 
 	@Override
@@ -78,7 +75,7 @@ public class LectureExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getGroupCount() {
-		return listDates.size();
+		return listDates != null?listDates.size():0;
 	}
 
 	@Override
@@ -113,4 +110,11 @@ public class LectureExpandableListAdapter extends BaseExpandableListAdapter {
 		return false;
 	}
 
+    public void setListDates(List<String> listDates) {
+        this.listDates = listDates;
+    }
+
+    public void setListLecturesByDate(HashMap<String, List<Lecture>> listLecturesByDate) {
+        this.listLecturesByDate = listLecturesByDate;
+    }
 }

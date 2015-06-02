@@ -24,6 +24,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Giovanne on 09/02/2015.
@@ -134,19 +135,7 @@ public class SinformREST {
 
             List<Course> courses = getCourse();
             List<Integer> groups = getGroupsFromCourses(courses);
-//            List<Integer> groups = new ArrayList<>();
 
-//            JSONObject json = getJsonResult(GET_COURSE_GROUPS, null);
-//            if (!json.optString("status_message").equals("null")) {
-//                throw new Exception(json.optString("status_message"));
-//            }
-//
-//            JSONArray jsonArray = json.getJSONArray("data");
-//
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                groups.add(new Integer(jsonArray.getJSONObject(i).getInt("group")));
-//            }
-//
             HashMap<String,List<Course>> courseByGroup = new HashMap<>();
             for(Integer group : groups){
                 List<Course> aux = new ArrayList<>();
@@ -163,8 +152,6 @@ public class SinformREST {
             throw new Exception("Falha na conexão");
         } catch (SocketException e) {
             throw new Exception("Falha na conexão");
-        } catch (IOException e) {
-            throw new Exception("Falha ao receber arquivo");
         }
     }
 
@@ -180,6 +167,10 @@ public class SinformREST {
         }
 
         return found;
+    }
+
+    public HashMap<String,List<Object>> getEventsByDate(){
+        return null;
     }
 
     public HashMap<String,List<Lecture>> getLectureByDate() throws Exception {
@@ -285,8 +276,6 @@ public class SinformREST {
             throw new Exception("Falha na conexão");
         } catch (SocketException e) {
             throw new Exception("Falha na conexão");
-        } catch (IOException e) {
-            throw new Exception("Falha ao receber arquivo");
         }
     }
 
@@ -295,7 +284,6 @@ public class SinformREST {
         HttpResponse httpResponse = null;
 
         try {
-//            httpResponse = HttpUtil.httpGet(url, args, null, "application/json");
             httpResponse = HttpUtil.httpPost(url, args, null, "application/json");
         } catch (Exception ex){
             throw new SocketException("Falha na conectividade");

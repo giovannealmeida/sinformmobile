@@ -24,4 +24,7 @@
     <!--<color name="light_primary_lecture">#FFCDD2</color>-->
     <!--<color name="acent_primary_lecture">#FF5722</color>-->
 
+    <color name="dark_primary_programming">#c56200</color>
+    <color name="primary_programming">#fe9227</color>
+
 </resources>

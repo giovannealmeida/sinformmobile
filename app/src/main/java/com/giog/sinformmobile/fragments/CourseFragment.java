@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.activities.CourseDetailsActivity;
@@ -57,6 +58,8 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_course, container, false);
+
+        adapter = new CourseExpandableListAdapter(getActivity(),expandableListView);
 
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);
@@ -135,15 +138,18 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
 
             if (coursesByGroup != null && !isCancelled()) {
                 groups = new ArrayList<String>(coursesByGroup.keySet());
-                adapter = new CourseExpandableListAdapter(groups,coursesByGroup,expandableListView,getActivity());
+                adapter.setListGroups(groups);
+                adapter.setListCourses(coursesByGroup);
                 expandableListView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 for(int i=0; i < adapter.getGroupCount(); i++)
                     expandableListView.expandGroup(i);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             }
 
             progressBar.setVisibility(View.GONE);
-            if (adapter.isEmpty() && adapter != null) {
+            if (adapter.isEmpty()) {
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
         }

@@ -59,6 +59,7 @@
     <style name="emptyTextView">
         <item name="android:visibility">gone</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:padding">8dp</item>
         <item name="android:text">@string/empty_text_message</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_width">match_parent</item>

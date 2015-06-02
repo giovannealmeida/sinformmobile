@@ -1,16 +1,23 @@
 package com.giog.sinformmobile.fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
 import com.giog.sinformmobile.R;
+import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
 import com.giog.sinformmobile.model.Event;
+import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,9 +36,13 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
 
     private ExpandableListView expandableListView;
     private ProgrammingExpandableListAdapter adapter;
+    private ProgressBar progressBar;
+    private TextView tvEmptyText;
+    private GetData getData;
 
     private List<String> listDays;
     private HashMap<String,List<Event>> listCourses;
+    private SinformREST sinformREST;
 
     /**
      * Use this factory method to create a new instance of
@@ -126,6 +137,8 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
         adapter = new ProgrammingExpandableListAdapter(listDays,listCourses,expandableListView,getActivity());
         expandableListView.setAdapter(adapter);
 
+        getData = new GetData();
+        getData.execute();
         return rootView;
     }
 
@@ -141,11 +154,73 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
         return false;
     }
 
-
-
     @Override
     public void onDetach() {
         super.onDetach();
+        if(!getData.isCancelled()){
+            getData.cancel(true);
+        }
+    }
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private class GetData extends AsyncTask<Void, Void, HashMap <String,List<Object>>> {
+
+        protected String message;
+
+        @Override
+        protected HashMap <String,List<Object>> doInBackground(Void... params) {
+
+            message = "";
+            if (!isOnline(getActivity().getApplicationContext())) {
+                message = "Sem conexão com Internet";
+                return null;
+            }
+
+            try {
+                return sinformREST.getEventsByDate();
+            } catch (Exception e) {
+                message = e.getMessage();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(HashMap <String,List<Object>> eventsByDate) {
+            super.onPostExecute(eventsByDate);
+
+            if (eventsByDate != null && !isCancelled()) {
+//                groups = new ArrayList<String>(eventsByDate.keySet());
+//                adapter = new CourseExpandableListAdapter(groups,eventsByDate,expandableListView,getActivity());
+                expandableListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                for(int i=0; i < adapter.getGroupCount(); i++)
+                    expandableListView.expandGroup(i);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+
+            progressBar.setVisibility(View.GONE);
+            if (adapter.isEmpty() && adapter != null) {
+                tvEmptyText.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
 }

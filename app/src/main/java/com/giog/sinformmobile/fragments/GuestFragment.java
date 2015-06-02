@@ -16,11 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
-import com.giog.sinformmobile.activities.CourseDetailsActivity;
 import com.giog.sinformmobile.activities.GuestDetailsActivity;
-import com.giog.sinformmobile.adapters.CourseListAdapter;
 import com.giog.sinformmobile.adapters.GuestListAdapter;
-import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.model.Guest;
 import com.giog.sinformmobile.webservice.SinformREST;
 

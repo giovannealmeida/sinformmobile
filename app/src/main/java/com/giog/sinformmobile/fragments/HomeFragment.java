@@ -189,8 +189,6 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(String about) {
             super.onPostExecute(about);
 
-            String users = "";
-
             if (about != null && !isCancelled()) {
                 tvDescription.setText(about);
                 tvDescription.setVisibility(View.VISIBLE);

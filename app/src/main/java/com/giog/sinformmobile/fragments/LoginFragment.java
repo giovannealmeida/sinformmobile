@@ -1,6 +1,5 @@
 package com.giog.sinformmobile.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giog.sinformmobile.MainActivity;
-import com.giog.sinformmobile.NavigationDrawerFragment;
 import com.giog.sinformmobile.R;
 import com.giog.sinformmobile.model.User;
 import com.giog.sinformmobile.webservice.SinformREST;

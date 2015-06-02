@@ -4,14 +4,29 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/primary_programming"
     tools:context=".MainActivity$PlaceholderFragment">
 
-    <!--<TextView android:id="@+id/section_label" android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="PROGRAMMING"/>-->
     <ExpandableListView
         android:id="@+id/elvEvents"
+        android:groupIndicator="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:childDivider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:divider="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/tvEmptyText"
+        style="@style/emptyTextView"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -161,6 +161,7 @@
                 android:background="@android:color/white"/>
 
             <TextView
+                android:layout_below="@id/countDownLayout"
                 android:id="@+id/tvEmptyText"
                 style="@style/emptyTextView" />
         </RelativeLayout>

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_primary_guest"
+    android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.giog.sinformmobile.activities.CourseDetailsActivity">
 
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/abc_action_bar_default_height_material"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ToolbarBlueStyle" />
+            app:theme="@style/ToolbarGuestStyle" />
 
         <LinearLayout
             android:id="@+id/llName"
@@ -29,79 +29,45 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/titleTextNivel2Guest"
+                style="@style/titleBoxGray"
                 android:text="Nome" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvName"
+                android:text="Nome do convidado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/contentBoxWhite">
-
-                <TextView
-                    android:id="@+id/tvName"
-                    style="@style/contentTextNivel2"
-                    android:text="Instrutor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llAbout"
-            android:layout_below="@id/llName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="5dp">
+                style="@style/contentBoxWhite"
+                android:textColor="@color/primary_guest"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/titleTextNivel2Guest"
+                style="@style/titleBoxGray"
                 android:text="Sobre" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvAbout"
+                android:text="@string/lorem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/contentBoxWhite">
-
-                <TextView
-                    android:id="@+id/tvAbout"
-                    android:text="@string/lorem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/contentTextNivel2" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llContact"
-            android:layout_below="@id/llAbout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                style="@style/contentBoxWhite"
+                android:textColor="@color/primary_guest"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/titleTextNivel2Guest"
+                style="@style/titleBoxGray"
                 android:text="Contato" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvEmail"
+                android:text="email@email.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/contentBoxWhite">
+                style="@style/contentBoxWhite"
+                android:textColor="@color/primary_guest"/>
 
-                <TextView
-                    android:id="@+id/tvEmail"
-                    style="@style/contentTextNivel2"
-                    android:text="email@email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

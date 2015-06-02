@@ -13,6 +13,16 @@
         <item name="android:background">@color/primary_custom</item>
     </style>
 
+    <style name="ToolbarLectureStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/actionbar_text</item>
+        <item name="android:background">@color/primary_lecture</item>
+    </style>
+
+    <style name="ToolbarGuestStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/actionbar_text</item>
+        <item name="android:background">@color/primary_guest</item>
+    </style>
+
     <style name="titleBoxGray">
         <item name="android:padding">8dp</item>
         <item name="android:background">@color/light_gray</item>
@@ -38,22 +48,38 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/dark_primary_lecture</item>
     </style>
+
+    <!--Estilo de títulos em itens de convidados-->
+    <style name="itemTitleGuest">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/dark_primary_guest</item>
+    </style>
+
+    <!--Estilo para os emptyTextView-->
+    <style name="emptyTextView">
+        <item name="android:visibility">gone</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:text">@string/empty_text_message</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
     <!-- ###################################################################################### -->
 
-    <style name="titleTextCourse" parent="titleBoxCourse">
-        <item name="android:textSize">40sp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+    <!--<style name="titleTextCourse" parent="titleBoxCourse">-->
+        <!--<item name="android:textSize">40sp</item>-->
+        <!--<item name="android:textColor">@android:color/white</item>-->
+    <!--</style>-->
 
-    <style name="titleTextNivel2Course" parent="titleBoxCourse">
-        <item name="android:textSize">28sp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+    <!--<style name="titleTextNivel2Course" parent="titleBoxCourse">-->
+        <!--<item name="android:textSize">28sp</item>-->
+        <!--<item name="android:textColor">@android:color/white</item>-->
+    <!--</style>-->
 
-    <style name="titleTextGuest" parent="titleBoxGuest">
-        <item name="android:textSize">40sp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
+    <!--<style name="titleTextGuest" parent="titleBoxGuest">-->
+        <!--<item name="android:textSize">40sp</item>-->
+        <!--<item name="android:textColor">@android:color/white</item>-->
+    <!--</style>-->
 
     <style name="titleTextNivel2Guest" parent="titleBoxGuest">
         <item name="android:textSize">28sp</item>
@@ -159,15 +185,6 @@
         <item name="android:background">@color/primary_custom</item>
         <item name="android:padding">5dp</item>
         <!--<item name="android:elevation">10dp</item>-->
-    </style>
-
-    <!--Estilo para os emptyTextView-->
-    <style name="emptyTextView">
-        <item name="android:visibility">gone</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:text">@string/empty_text_message</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
     </style>
 
 </resources>

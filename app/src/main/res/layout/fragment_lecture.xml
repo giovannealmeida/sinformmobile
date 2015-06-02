@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.giog.sinformmobile.fragments.CourseFragment"
-    android:background="@android:color/white">
+    android:background="@color/primary_lecture">
 
     <ExpandableListView
         android:id="@+id/elvLectures"

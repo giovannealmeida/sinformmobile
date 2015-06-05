@@ -2,29 +2,10 @@
     <resources>
     <color name="primary_custom">#699bd4</color>
     <color name="dark_primary_custom">#1d409d</color>
-    <color name="light_primary_custom">#699bd4</color>
     <color name="actionbar_text">#fff</color>
     <color name="acent_custom">#aa66cc</color>
 
     <color name="light_gray">#f1f1f1</color>
     <color name="dark_gray">#4b4b4b</color>
-
-    <color name="dark_primary_course">#1d409d</color>
-    <color name="primary_course">#699bd4</color>
-    <!--<color name="light_primary_course">#B3E5FC</color>-->
-    <!--<color name="acent_primary_course">#448AFF</color>-->
-
-    <color name="dark_primary_guest">#11772d</color>
-    <color name="primary_guest">#00bb27</color>
-    <!--<color name="light_primary_guest">#C8E6C9</color>-->
-    <!--<color name="acent_primary_guest">#8BC34A</color>-->
-
-    <color name="dark_primary_lecture">#fe4d4d</color>
-    <color name="primary_lecture">#fe8484</color>
-    <!--<color name="light_primary_lecture">#FFCDD2</color>-->
-    <!--<color name="acent_primary_lecture">#FF5722</color>-->
-
-    <color name="dark_primary_programming">#c56200</color>
-    <color name="primary_programming">#fe9227</color>
 
 </resources>

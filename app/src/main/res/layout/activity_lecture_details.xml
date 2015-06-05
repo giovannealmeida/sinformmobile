@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/abc_action_bar_default_height_material"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ToolbarLectureStyle" />
+            app:theme="@style/ToolbarBlueStyle" />
 
         <LinearLayout
             android:layout_below="@id/toolbar"
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/contentBoxWhite"
-                android:textColor="@color/primary_lecture"/>
+                android:textColor="@color/primary_custom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/contentBoxWhite"
-                android:textColor="@color/primary_lecture"/>
+                android:textColor="@color/primary_custom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/contentBoxWhite"
-                android:textColor="@color/primary_guest"/>
+                android:textColor="@color/dark_primary_custom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
                 android:textSize="20sp"
-                android:textColor="@color/primary_lecture"/>
+                android:textColor="@color/primary_custom"/>
             <TextView
                 android:id="@+id/tvTime"
                 android:text="00:00hs"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
                 android:textSize="20sp"
-                android:textColor="@color/primary_lecture"/>
+                android:textColor="@color/primary_custom"/>
             <TextView
                 android:id="@+id/tvLocal"
                 android:text="Pavilhão Jorge Amado"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="8dp"
                 android:textSize="20sp"
-                android:textColor="@color/primary_lecture"/>
+                android:textColor="@color/primary_custom"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/abc_action_bar_default_height_material"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ToolbarGuestStyle" />
+            app:theme="@style/ToolbarBlueStyle" />
 
         <LinearLayout
             android:id="@+id/llName"
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/contentBoxWhite"
-                android:textColor="@color/primary_guest"/>
+                android:textColor="@color/primary_custom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/contentBoxWhite"
-                android:textColor="@color/primary_guest"/>
+                android:textColor="@color/primary_custom"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/contentBoxWhite"
-                android:textColor="@color/primary_guest"/>
+                android:textColor="@color/primary_custom"/>
 
         </LinearLayout>
     </RelativeLayout>

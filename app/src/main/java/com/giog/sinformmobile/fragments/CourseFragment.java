@@ -59,7 +59,7 @@ public class CourseFragment extends Fragment implements ExpandableListView.OnChi
         // Inflate the layout for this fragment
         View viewRoot = inflater.inflate(R.layout.fragment_course, container, false);
 
-        adapter = new CourseExpandableListAdapter(getActivity(),expandableListView);
+        adapter = new CourseExpandableListAdapter(getActivity());
 
         this.progressBar = (ProgressBar) viewRoot.findViewById(R.id.progressBar);
         this.tvEmptyText = (TextView) viewRoot.findViewById(R.id.tvEmptyText);

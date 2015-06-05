@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.giog.sinformmobile.fragments.CourseFragment"
-    android:background="@color/primary_guest">
+    android:background="@color/primary_custom">
 
     <ListView
         android:id="@+id/lvGuest"

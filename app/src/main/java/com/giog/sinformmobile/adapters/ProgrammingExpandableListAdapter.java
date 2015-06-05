@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.giog.sinformmobile.R;
-import com.giog.sinformmobile.fragments.ProgrammingFragment;
+import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.model.Event;
+import com.giog.sinformmobile.model.Lecture;
 import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.text.SimpleDateFormat;
@@ -24,31 +24,21 @@ import java.util.List;
 public class ProgrammingExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private List<String> listDays;
-	private HashMap<String,List<Event>> listCourses;
+	private HashMap<String,List<Event>> listEvents;
 	private Context context;
 
-	private int lastExpandedGroupPosition = -1;
-	private ExpandableListView expandableListView;
-
-	private static final String TAG = ProgrammingFragment.class.getSimpleName();
-
-	private SinformREST sinformRest;
-
-	public ProgrammingExpandableListAdapter(List<String> listDays, HashMap<String, List<Event>> listCourses, ExpandableListView expandableListView, Context context) {
-		this.listDays = listDays;
+	public ProgrammingExpandableListAdapter(Context context) {
 		this.context = context;
-		this.expandableListView = expandableListView;
-		this.listCourses = listCourses;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return listCourses.get(listDays.get(groupPosition)).size();
+		return listEvents != null ? listEvents.get(listDays.get(groupPosition)).size():0;
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return listCourses.get(listDays.get(groupPosition)).get(childPosition);
+		return listEvents.get(listDays.get(groupPosition)).get(childPosition);
 	}
 
 	@Override
@@ -63,28 +53,22 @@ public class ProgrammingExpandableListAdapter extends BaseExpandableListAdapter 
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.item_event, null);
+			convertView = infalInflater.inflate(R.layout.item_expandable_programming_child, null);
 		}
 
-		TextView txtTime = (TextView) convertView
-				.findViewById(R.id.tvTime);
+		TextView txtName = (TextView) convertView.findViewById(R.id.tvTitle);
+        TextView txtAbout = (TextView) convertView.findViewById(R.id.tvAbout);
+        TextView txtTime = (TextView) convertView.findViewById(R.id.tvTime);
+        ImageView ivTypeImg = (ImageView) convertView.findViewById(R.id.ivIcon);
 
-		TextView txtName = (TextView) convertView
-				.findViewById(R.id.tvName);
+        txtName.setText(event.getTitle());
+        txtAbout.setText(event.getAbout());
+        txtTime.setText(event.getFormattedTime()+"hs");
 
-        ImageView ivTypeImg = (ImageView) convertView.findViewById(R.id.ivTypeImg);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-
-		txtTime.setText(String.valueOf(formatter.format(event.getTime())) + " - ");
-        txtName.setText(event.getName());
-        switch (event.getType()){
-            case 1: //Minicurso
-                ivTypeImg.setImageResource(R.drawable.img_course);
-                break;
-            case 2: //Palestra
-                ivTypeImg.setImageResource(R.drawable.img_lecture);
-                break;
+        if(event instanceof Course){
+            ivTypeImg.setImageResource(R.drawable.img_course);
+        } else if(event instanceof Lecture) {
+            ivTypeImg.setImageResource(R.drawable.img_lecture);
         }
 
 		return convertView;
@@ -97,7 +81,7 @@ public class ProgrammingExpandableListAdapter extends BaseExpandableListAdapter 
 
 	@Override
 	public int getGroupCount() {
-		return listDays.size();
+		return listDays != null ? listDays.size():0;
 	}
 
 	@Override
@@ -117,12 +101,13 @@ public class ProgrammingExpandableListAdapter extends BaseExpandableListAdapter 
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.item_day, null);
+			convertView = infalInflater.inflate(R.layout.item_expandable_default_group, null);
 		}
 
 		TextView txtName = (TextView) convertView
-				.findViewById(R.id.tvDay);
+				.findViewById(R.id.tvGroup);
 
+        ((ImageView) convertView.findViewById(R.id.ivIcon)).setVisibility(View.GONE);
 		txtName.setText(day);
 		return convertView;
 	}
@@ -132,15 +117,23 @@ public class ProgrammingExpandableListAdapter extends BaseExpandableListAdapter 
 		return false;
 	}
 
-	@Override
-	public void onGroupExpanded(int groupPosition){
-		//collapse the old expanded group, if not the same
-		//as new group to expand
-		if(groupPosition != lastExpandedGroupPosition){
-			expandableListView.collapseGroup(lastExpandedGroupPosition);
-		}
+    public void setListDays(List<String> listDays) {
+        this.listDays = listDays;
+    }
 
-		super.onGroupExpanded(groupPosition);
-		lastExpandedGroupPosition = groupPosition;
-	}
+    public void setListEvents(HashMap<String, List<Event>> listEvents) {
+        this.listEvents = listEvents;
+    }
+
+    //	@Override
+//	public void onGroupExpanded(int groupPosition){
+//		//collapse the old expanded group, if not the same
+//		//as new group to expand
+//		if(groupPosition != lastExpandedGroupPosition){
+//			expandableListView.collapseGroup(lastExpandedGroupPosition);
+//		}
+//
+//		super.onGroupExpanded(groupPosition);
+//		lastExpandedGroupPosition = groupPosition;
+//	}
 }

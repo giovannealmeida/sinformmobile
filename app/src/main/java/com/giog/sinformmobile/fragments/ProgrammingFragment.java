@@ -1,6 +1,7 @@
 package com.giog.sinformmobile.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -15,8 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.giog.sinformmobile.R;
+import com.giog.sinformmobile.activities.CourseDetailsActivity;
+import com.giog.sinformmobile.activities.LectureDetailsActivity;
 import com.giog.sinformmobile.adapters.ProgrammingExpandableListAdapter;
+import com.giog.sinformmobile.model.Course;
 import com.giog.sinformmobile.model.Event;
+import com.giog.sinformmobile.model.Lecture;
 import com.giog.sinformmobile.webservice.SinformREST;
 
 import java.util.ArrayList;
@@ -32,7 +37,7 @@ import java.util.List;
  * Exemplo:
  * Fragment newFragment = HomeFragment.newInstance(sectionNumber);
  */
-public class ProgrammingFragment extends Fragment implements ExpandableListView.OnChildClickListener {
+public class ProgrammingFragment extends Fragment implements ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
 
     private ExpandableListView expandableListView;
     private ProgrammingExpandableListAdapter adapter;
@@ -40,8 +45,6 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
     private TextView tvEmptyText;
     private GetData getData;
 
-    private List<String> listDays;
-    private HashMap<String,List<Event>> listCourses;
     private SinformREST sinformREST;
 
     /**
@@ -74,69 +77,18 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_programming, container, false);
 
-        listDays =  new ArrayList<String>();
-        listCourses = new HashMap<String,List<Event>>();
+        adapter = new ProgrammingExpandableListAdapter(getActivity());
 
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.elvEvents);
         expandableListView.setOnChildClickListener(this);
+        expandableListView.setOnGroupClickListener(this);
 
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        tvEmptyText = (TextView) rootView.findViewById(R.id.tvEmptyText);
 
-
-        /*Populando lista*/
-        Event c1, c2, c3, c4, c5, c6, l1, l2, l3, l4, l5, l6, l7, l8, l9;
-
-        c1 = new Event(1, "MC1", "08:30:00", "MC1 ordinário",1);
-        c2 = new Event(2, "MC2", "10:30:00", "MC2 ordinário",1);
-        c3 = new Event(3, "MC3", "13:30:00", "MC3 ordinário",1);
-        c4 = new Event(4, "MC4", "08:30:00", "MC4 ordinário",1);
-        c5 = new Event(5, "MC5", "10:30:00", "MC5 ordinário",1);
-        c6 = new Event(6, "MC6", "08:30:00", "MC6 ordinário",1);
-        l1 = new Event(7, "LC1", "08:30:00", "LC1 ordinária",2);
-        l2 = new Event(7, "LC2", "10:30:00", "LC2 ordinária",2);
-        l3 = new Event(7, "LC3", "13:30:00", "LC3 ordinária",2);
-        l4 = new Event(7, "LC4", "08:30:00", "LC4 ordinária",2);
-        l5 = new Event(7, "LC5", "10:30:00", "LC5 ordinária",2);
-        l6 = new Event(7, "LC6", "13:30:00", "LC6 ordinária",2);
-        l7 = new Event(7, "LC7", "08:30:00", "LC7 ordinária",2);
-        l8 = new Event(7, "LC8", "10:30:00", "LC8 ordinária",2);
-        l9 = new Event(7, "LC9", "13:30:00", "LC9 ordinária",2);
-
-        List<Event> segundaE = new ArrayList<Event>();
-        List<Event> tercaE = new ArrayList<Event>();
-        List<Event> quartaE = new ArrayList<Event>();
-
-        segundaE.add(c1);
-        segundaE.add(c2);
-        segundaE.add(c3);
-        segundaE.add(l1);
-        segundaE.add(l2);
-        segundaE.add(l3);
-
-        tercaE.add(c4);
-        tercaE.add(c5);
-        tercaE.add(l4);
-        tercaE.add(l5);
-        tercaE.add(l6);
-
-        quartaE.add(c6);
-        quartaE.add(l7);
-        quartaE.add(l8);
-        quartaE.add(l9);
-
-        listDays = new ArrayList<String>();
-        listCourses = new HashMap<String,List<Event>>();
-
-        listDays.add("Segunda-feira");
-        listDays.add("Terça-feira");
-        listDays.add("Quarta-feira");
-
-        listCourses.put(listDays.get(0),segundaE);
-        listCourses.put(listDays.get(1),tercaE);
-        listCourses.put(listDays.get(2),quartaE);
-
-        adapter = new ProgrammingExpandableListAdapter(listDays,listCourses,expandableListView,getActivity());
         expandableListView.setAdapter(adapter);
 
+        sinformREST = new SinformREST();
         getData = new GetData();
         getData.execute();
         return rootView;
@@ -146,12 +98,19 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
         Event event = (Event) adapter.getChild(groupPosition,childPosition);
-        Toast.makeText(getActivity(),event.getName(),Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
-//        intent.putExtra("course", (android.os.Parcelable) course);
-//        startActivity(intent);
+
+        if(event instanceof Course){
+            startActivity(new Intent(getActivity(),CourseDetailsActivity.class).putExtra("course",event));
+        } else if (event instanceof Lecture) {
+            startActivity(new Intent(getActivity(),LectureDetailsActivity.class).putExtra("lecture",event));
+        }
 
         return false;
+    }
+
+    @Override
+    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+        return true;
     }
 
     @Override
@@ -173,12 +132,12 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
         return false;
     }
 
-    private class GetData extends AsyncTask<Void, Void, HashMap <String,List<Object>>> {
+    private class GetData extends AsyncTask<Void, Void, HashMap <String,List<Event>>> {
 
         protected String message;
 
         @Override
-        protected HashMap <String,List<Object>> doInBackground(Void... params) {
+        protected HashMap <String,List<Event>> doInBackground(Void... params) {
 
             message = "";
             if (!isOnline(getActivity().getApplicationContext())) {
@@ -202,12 +161,13 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
         }
 
         @Override
-        protected void onPostExecute(HashMap <String,List<Object>> eventsByDate) {
+        protected void onPostExecute(HashMap <String,List<Event>> eventsByDate) {
             super.onPostExecute(eventsByDate);
 
             if (eventsByDate != null && !isCancelled()) {
-//                groups = new ArrayList<String>(eventsByDate.keySet());
-//                adapter = new CourseExpandableListAdapter(groups,eventsByDate,expandableListView,getActivity());
+                List<String> days = new ArrayList<>(eventsByDate.keySet());
+                adapter.setListDays(days);
+                adapter.setListEvents(eventsByDate);
                 expandableListView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 for(int i=0; i < adapter.getGroupCount(); i++)
@@ -217,7 +177,7 @@ public class ProgrammingFragment extends Fragment implements ExpandableListView.
             }
 
             progressBar.setVisibility(View.GONE);
-            if (adapter.isEmpty() && adapter != null) {
+            if (adapter.isEmpty()) {
                 tvEmptyText.setVisibility(View.VISIBLE);
             }
         }

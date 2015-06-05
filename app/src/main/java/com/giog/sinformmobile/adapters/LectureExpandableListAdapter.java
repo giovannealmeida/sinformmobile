@@ -53,7 +53,7 @@ public class LectureExpandableListAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.item_expandable_lecture_child, null);
+			convertView = infalInflater.inflate(R.layout.item_expandable_default_child, null);
 		}
 
 		TextView tvTitle = (TextView) convertView

@@ -4,6 +4,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.giog.sinformmobile.model.Course;
+import com.giog.sinformmobile.model.Event;
 import com.giog.sinformmobile.model.Guest;
 import com.giog.sinformmobile.model.Lecture;
 import com.giog.sinformmobile.model.User;
@@ -169,8 +170,29 @@ public class SinformREST {
         return found;
     }
 
-    public HashMap<String,List<Object>> getEventsByDate(){
-        return null;
+    public HashMap<String,List<Event>> getEventsByDate() throws Exception{
+        List<Event> eventList = new ArrayList<>();
+        HashMap<String,List<Event>> eventByDate = new HashMap<>();
+        List<Lecture> lectureList = getLecture();
+        List<Course> courseList = getCourse();
+
+        if(courseList != null && lectureList != null){
+            eventList.addAll(lectureList);
+            eventList.addAll(courseList);
+
+            List<String> dates = getDatesFromEvents(eventList);
+            for(String date : dates){
+                List<Event> aux = new ArrayList<>();
+                for(int i = eventList.size()-1; i>=0;i--){
+                    if(eventList.get(i).getDayOfWeek() == date){
+                        aux.add(eventList.get(i));
+                    }
+                }
+                eventByDate.put(date, aux);
+            }
+        }
+
+        return eventByDate;
     }
 
     public HashMap<String,List<Lecture>> getLectureByDate() throws Exception {
@@ -183,9 +205,10 @@ public class SinformREST {
             HashMap<String,List<Lecture>> lectureByDate = new HashMap<>();
             for(String date : dates){
                 List<Lecture> aux = new ArrayList<>();
-                for(Lecture lecture : lectures){
-                    if(lecture.getDayOfWeek() == date){
-                        aux.add(lecture);
+//                for(Lecture lecture : lectures){
+                for(int i=lectures.size()-1;i>=0;i--){
+                    if(lectures.get(i).getDayOfWeek() == date){
+                        aux.add(lectures.get(i));
                     }
                 }
                 lectureByDate.put(date, aux);
@@ -199,14 +222,24 @@ public class SinformREST {
         }
     }
 
+    private List<String> getDatesFromEvents(List<Event> list){
+        List<String> found = new ArrayList<>();
+
+        for(Event e : list){
+            if(!found.contains(e.getDayOfWeek())){
+                found.add(e.getDayOfWeek());
+            }
+        }
+
+        return found;
+    }
+
     private List<String> getDatesFromLectures(List<Lecture> list){
         List<String> found = new ArrayList<>();
-        String lastFound = "";
 
         for(Lecture l : list){
-            if(!l.getDayOfWeek().equals(lastFound)){
-                lastFound = l.getDayOfWeek();
-                found.add(lastFound);
+            if(!found.contains(l.getDayOfWeek())){
+                found.add(l.getDayOfWeek());
             }
         }
 
@@ -298,7 +331,11 @@ public class SinformREST {
             return new JSONObject(response);
 
         } else {
-            throw new IOException("Falha de conectividade: " + httpResponse.getStatusLine().getStatusCode());
+            if(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_UNAUTHORIZED){
+                throw new IOException("Conexão não autenticada.\nVerifique sua conexão.");
+            } else {
+                throw new IOException("Falha de conectividade: " + httpResponse.getStatusLine().getStatusCode());
+            }
         }
 
     }

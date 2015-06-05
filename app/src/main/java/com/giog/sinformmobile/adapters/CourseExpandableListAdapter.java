@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,11 +23,8 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<Course>> listCourses;
     private Context context;
 
-    private ExpandableListView expandableListView;
-
-    public CourseExpandableListAdapter(Context context, ExpandableListView expandableListView) {
+    public CourseExpandableListAdapter(Context context) {
         this.context = context;
-        this.expandableListView = expandableListView;
     }
 
     @Override
@@ -56,7 +52,7 @@ public class CourseExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.item_expandable_course_child, null);
+            convertView = infalInflater.inflate(R.layout.item_expandable_default_child, null);
         }
 
         TextView tvTitle = (TextView) convertView

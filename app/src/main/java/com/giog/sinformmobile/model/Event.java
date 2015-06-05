@@ -1,61 +1,108 @@
 package com.giog.sinformmobile.model;
 
+import android.util.Log;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Giovanne on 12/02/2015.
  */
-public class Event {
+public class Event implements Serializable {
+
+
 
     private int id;
-    private String name;
-//    private long time;
-    private Date time;
-    private String description;
-    /* 1- Minicurso
-       2- Palestra*/
-    private int type;
+    private String title;
+    private Calendar date;
+    private Guest guest;
+    private String local;
+    private String about;
 
-//    public Event(JSONObject jsonObject) {
-//        if(jsonObject != null) {
-//            this.id = jsonObject.optInt("id");
-//            this.name = jsonObject.optString("name");
-//            this.time = jsonObject.optLong("time");
-//            this.description = jsonObject.optString("description");
-//        }
-//    }
+    public Event(JSONObject jsonObject) throws JSONException{
+        if(jsonObject != null) {
+            this.id = jsonObject.optInt("id");
+            this.title = jsonObject.optString("title");
+            this.guest = new Guest(jsonObject.getJSONObject("guest"));
+            this.date = getFormattedDate(jsonObject.optString("date")); //2015-09-22 08:00:00
+            this.local = jsonObject.optString("local");
+            this.about = jsonObject.optString("about");
 
-
-    public Event(int id, String name, String time, String description, int type) {
-        this.id = id;
-        this.name = name;
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-        try {
-            this.time = formatter.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
-        this.description = description;
-        this.type = type;
+    }
+
+    public static Calendar getFormattedDate(String strDate) {
+        if (strDate == null || strDate.equals(""))
+            return null;
+
+        Calendar cal = Calendar.getInstance();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            cal.setTime(sdf.parse(strDate));
+        } catch (ParseException e) {
+            Log.e("Course parsing date", e.getMessage());
+        }
+        return cal;
+    }
+
+    public String getFormattedDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        return dateFormat.format(getDate().getTime());
+    }
+
+    public String getFormattedTime(){
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        return timeFormat.format(getDate().getTime());
+    }
+
+    public String getDayOfWeek(){
+        switch (date.get(Calendar.DAY_OF_WEEK)){
+            case Calendar.MONDAY:
+                return "Segunda";
+            case Calendar.TUESDAY:
+                return "Terça";
+            case Calendar.WEDNESDAY:
+                return "Quarta";
+            case Calendar.THURSDAY:
+                return "Quinta";
+            case Calendar.FRIDAY:
+                return "Sexta";
+            case Calendar.SATURDAY:
+                return "Sábado";
+            case Calendar.SUNDAY:
+                return "Domingo";
+            default:
+                return "????";
+        }
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public String getDescription() { return description; }
+    public Calendar getDate() {
+        return date;
+    }
 
-    public Date getTime() { return time; }
+    public Guest getGuest() {
+        return guest;
+    }
 
-    public int getType() {
-        return type;
+    public String getLocal() {
+        return local;
+    }
+
+    public String getAbout() {
+        return about;
     }
 }

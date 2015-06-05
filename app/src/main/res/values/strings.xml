@@ -23,4 +23,8 @@
     <string name="title_activity_lecture_details">LectureDetailsActivity</string>
     <string name="empty_text_message">Sua rede parece estar com problemas.\nTente novamente mais tarde.</string>
 
+    <!-- Contato itens -->
+    <string name="contact_email">cacic@uesc.br [PEGAR DO BANCO]</string>
+    <string name="contact_site">http://nit.uesc.br/andre/[PEGAR DO BANCO]</string>
+
 </resources>
